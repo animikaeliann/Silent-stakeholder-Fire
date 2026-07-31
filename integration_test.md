@@ -6,7 +6,7 @@ session — see caveat at the bottom).
 ## 1. Backend starts and serves real data
 
 ```
-uvicorn backend.app:app --port 8000
+python -m uvicorn backend.app:app --port 8420
 ```
 
 Confirmed live:
@@ -34,14 +34,17 @@ payloads above (not just the schema on paper):
 - Verdict values seen in the data (`UNDER-PRIORITIZED`) have a matching CSS
   class (`.verdict-UNDER-PRIORITIZED`); `IGNORED` and `MISUNDERSTOOD` classes
   are also defined and would render correctly if a future run produces them.
-- `API_BASE` in the frontend (`http://127.0.0.1:8000`) matches the port the
-  backend is started on in this doc and in the README. Deliberately `127.0.0.1`,
-  not `localhost`: on at least one dev machine `localhost` resolved to `::1`
-  first, which collided with an unrelated service already bound to `[::]:8000`
-  (in this case Docker Desktop's backend) and returned its `{"message":
-  "Unauthorized"}` instead of ever reaching our app. `curl http://127.0.0.1:8000/...`
-  always reaches this API regardless of what else is squatting on the IPv6 side
-  of the port.
+- `API_BASE` in the frontend (`http://127.0.0.1:8420`) matches the port the
+  backend is started on in this doc and in the README. Not port 8000, and not
+  `localhost`: on at least one dev machine, Docker Desktop's backend service
+  is bound to `[::]:8000` dual-stack, so it answers `localhost:8000` (via
+  `::1`) *and* `127.0.0.1:8000` once our own process isn't holding that exact
+  IPv4 address — e.g. immediately after a restart — returning its own
+  `{"message":"Unauthorized"}` with no indication anything's wrong. This was
+  caught live: `curl http://127.0.0.1:8000/gaps` returned Docker's response,
+  not ours, right after our server had been bounced. Moving to port 8420
+  (confirmed free) removes the collision entirely rather than relying on
+  win-the-race timing against another service.
 
 ## 3. Static checks on the frontend itself
 

@@ -4,7 +4,9 @@ this is a 24hr hackathon demo; output/gaps.json and
 output/rejected_candidates.jsonl are read once at startup and served
 straight out of memory.
 
-Run: uvicorn backend.app:app --reload --port 8000
+Run: python -m uvicorn backend.app:app --reload --port 8420
+(port 8420, not 8000 -- Docker Desktop's backend service on this box binds
+[::]:8000 dual-stack and will silently intercept loopback traffic on 8000)
 """
 import json
 from pathlib import Path

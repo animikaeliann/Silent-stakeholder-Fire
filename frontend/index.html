@@ -184,8 +184,9 @@
 </section>
 
 <script>
-const API_BASE = "http://127.0.0.1:8000"; // not "localhost": on this box it resolves to ::1 first,
-// which collides with an unrelated service already bound to [::]:8000
+const API_BASE = "http://127.0.0.1:8420"; // not port 8000: Docker Desktop's backend service is
+// bound to [::]:8000 (dual-stack), and silently swallows loopback traffic on that port whenever
+// nothing else holds the specific IPv4 address -- 8420 avoids the whole class of collision
 const REPO_URL = "https://github.com/bluesky-social/social-app";
 
 function escapeHtml(s) {
@@ -287,7 +288,7 @@ async function main() {
     statusDot.classList.add("err");
     statusText.textContent = "API unreachable";
     errorSlot.innerHTML = `<div class="error-banner">Can't reach the API at ${API_BASE}. Start it with:
-      <code>uvicorn backend.app:app --reload --port 8000</code></div>`;
+      <code>python -m uvicorn backend.app:app --reload --port 8420</code></div>`;
     document.getElementById("gaps-list").innerHTML = "";
     document.getElementById("rejected-list").innerHTML = "";
     return;
