@@ -202,6 +202,25 @@ def roadmap_disconfirmation(matched_issues):
     return score, all_reasons, verdict
 
 
+def evidence_diversity_ok(evidence):
+    """SPEC.md §3 hard rule: no gap ships with fewer than 2 evidence entries
+    from at least 2 distinct source_types."""
+    if len(evidence) < 2:
+        return False
+    distinct_types = set()
+    for e in evidence:
+        eid = e["id"]
+        if eid.startswith("review-"):
+            distinct_types.add("review")
+        elif eid.startswith("github-issue-"):
+            distinct_types.add("github_issue")
+        elif eid.startswith("github-milestone-"):
+            distinct_types.add("github_milestone")
+        elif eid.startswith("ticket-"):
+            distinct_types.add("ticket")
+    return len(distinct_types) >= 2
+
+
 def build_gap(candidate, reviews, roadmap_by_number, rank):
     matched_reviews = [r for r in reviews if candidate["review_filter"](r)]
     matched_reviews.sort(key=lambda r: r["timestamp"] or "")
@@ -256,8 +275,7 @@ def build_gap(candidate, reviews, roadmap_by_number, rank):
             "weight": "corroborating",
         })
 
-    distinct_types = {"review"} | {"github_issue" for _ in matched_issues}
-    assert len(evidence) >= 2 and len(distinct_types) >= 2, "hard rule violated: evidence diversity"
+    assert evidence_diversity_ok(evidence), "hard rule violated: evidence diversity"
 
     verdict_justification = (
         f"{n} independent reviews ({matched_reviews[0]['timestamp'][:10]} to "
