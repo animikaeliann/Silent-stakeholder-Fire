@@ -1,0 +1,28 @@
+[
+  {
+    "gap_rank": 1,
+    "need": "Users can't sign in or join the waitlist because the on-screen keyboard flashes open and immediately closes on the username/password/email field, blocking account access entirely on some Android devices.",
+    "team": "MOBILE_CLIENT",
+    "cc_teams": [],
+    "signal_used": "keyword",
+    "reasoning": "No informative GitHub label found on referenced issues (github-issue-6264: labels=['bug']; github-issue-2371: labels=[]) -- fell back to weighted keyword matching (need-statement matches count 2x, evidence-excerpt matches count 1x, since evidence excerpts are raw review text that often bundles unrelated complaints in the same snippet). Matched terms for MOBILE_CLIENT: ['android', 'keyboard', 'log in', 'login', 'on-screen keyboard', 'phone', 'samsung', 'sign in']. Full score breakdown across all teams: MOBILE_CLIENT=15, WEB_FRONTEND=3, TRUST_SAFETY=2."
+  },
+  {
+    "gap_rank": 2,
+    "need": "Users have no way to stop bot/spam accounts from following them: there is no private/locked account option, and no way to remove an unwanted follower without blocking them.",
+    "team": "TRUST_SAFETY",
+    "cc_teams": [],
+    "signal_used": "keyword",
+    "reasoning": "No informative GitHub label found on referenced issues (github-issue-1155: labels=['feature-request', 'x:on-the-roadmap']; github-issue-1160: labels=['feature-request', 'x:discussing']) -- fell back to weighted keyword matching (need-statement matches count 2x, evidence-excerpt matches count 1x, since evidence excerpts are raw review text that often bundles unrelated complaints in the same snippet). Matched terms for TRUST_SAFETY: ['block', 'bot', 'moderation', 'private account', 'spam', 'unwanted follower']. Full score breakdown across all teams: TRUST_SAFETY=12."
+  },
+  {
+    "gap_rank": 3,
+    "need": "Follower counts and follower lists don't reflect reality: blocked accounts still count as followers and still appear in follower lists, and displayed follower counts are simply inconsistent/wrong on refresh.",
+    "team": "TRUST_SAFETY",
+    "cc_teams": [
+      "WEB_FRONTEND"
+    ],
+    "signal_used": "keyword",
+    "reasoning": "No informative GitHub label found on referenced issues (github-issue-853: labels=['bug', 'x:on-the-roadmap']; github-issue-7370: labels=['bug']) -- fell back to weighted keyword matching (need-statement matches count 2x, evidence-excerpt matches count 1x, since evidence excerpts are raw review text that often bundles unrelated complaints in the same snippet). Matched terms for TRUST_SAFETY: ['block', 'bot', 'spam']. Full score breakdown across all teams: TRUST_SAFETY=5, WEB_FRONTEND=4, BACKEND_API=3. NOTE -- near-tie: WEB_FRONTEND scored within 1 point(s) of the winning team and is also a defensible primary owner for this gap; treat this as cross-cutting rather than a confident single-team call."
+  }
+]
