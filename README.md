@@ -1,5 +1,9 @@
 # The Silent Stakeholder — Bluesky Gap Analysis
 
+Repo: https://github.com/animikaeliann/Silent-stakeholder-Fire
+
+**The gap:** Bluesky's Android login flow has a keyboard-dismissal bug blocking account access for a significant share of users — corroborated by 287 reviews and an exact-match GitHub issue open 620+ days with no milestone.
+
 Pipeline: `scripts/01_normalize_reviews.py` -> `scripts/02_fetch_github_roadmap.py`
 -> `scripts/03_infer_gaps.py` -> `scripts/04_generate_report.py`, output at
 `output/gaps.json` / `output/gaps.md`. See `SPEC.md` for the locked contract.
