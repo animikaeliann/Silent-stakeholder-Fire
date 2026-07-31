@@ -1,0 +1,125 @@
+[
+  {
+    "rank": 1,
+    "need": "Users can't sign in or join the waitlist because the on-screen keyboard flashes open and immediately closes on the username/password/email field, blocking account access entirely on some Android devices.",
+    "confidence": 0.95,
+    "confidence_justification": "corroboration=1.0 (n=287 distinct reviews / 15 cap) * 0.35 = 0.35; signal_count=1.0 (n=287 / 100 cap) * 0.25 = 0.25; latency=1.0 (span=726d / 365 cap) * 0.20 = 0.2; roadmap_disconfirmation=0.8 * 0.20 = 0.16. Sum=0.96 -> rounded to nearest 0.05 = 0.95. Disconfirmation basis: #6264: no milestone AND stale (620d since last update, threshold 180d); #2371: no milestone AND stale (944d since last update, threshold 180d).",
+    "verdict": "UNDER-PRIORITIZED",
+    "verdict_justification": "287 independent reviews (2023-04-24 to 2025-04-19) describe this need. #6264: no milestone AND stale (620d since last update, threshold 180d); #2371: no milestone AND stale (944d since last update, threshold 180d)",
+    "evidence": [
+      {
+        "id": "review-play-04353",
+        "excerpt_or_paraphrase": "I can't even log in on the app, I can use the app on my Apple device but not here. Seems like a lot of the problems have to do with Samsung devices on the Google Play Store. Every time I click to enter my email or any information it shuts down right away. ***UPDATE*** It's a keyb",
+        "weight": "primary"
+      },
+      {
+        "id": "review-play-04921",
+        "excerpt_or_paraphrase": "It would be nice if it was possible to actually sign into the app on my phone. When trying to do so, the keyboard flashes and immediately disappears. This has been ongoing now for a month. I was signed out and have never been able to get back in. It's a useless app until then, wh",
+        "weight": "corroborating"
+      },
+      {
+        "id": "github-issue-6264",
+        "excerpt_or_paraphrase": "Unable to login on Android; Samsung S22.  ### Steps to Reproduce  1. Go to login screen.\r 2. Select login field.\r 3. The screen jumps as keyboard pulls up.\r 4. The login field is deselected.\r 5. Password field jumps the same way.  ### Attachments  _No response_  ### What platform",
+        "weight": "corroborating"
+      },
+      {
+        "id": "github-issue-2371",
+        "excerpt_or_paraphrase": "User handle input broken with some Android keyboards  This is not new, but we've managed to improve support for various keyboards in the composer, and we should return to this to see what we can do here.  https://github.com/bluesky-social/social-app/assets/4732330/f1ec0c2c-5e27-4",
+        "weight": "corroborating"
+      }
+    ],
+    "roadmap_refs": [
+      {
+        "id": "github-issue-6264",
+        "relation": "exact match: same symptom (login field keyboard opens then closes/deselects on Android), same repro steps"
+      },
+      {
+        "id": "github-issue-2371",
+        "relation": "adjacent-narrower: same class of Android keyboard/input bug, but scoped to composer handle-input, not the login screen"
+      }
+    ],
+    "rejected_alternative_explanations": "Could this be device fragmentation noise (one bad OEM keyboard) rather than a real product gap? Ruled out: reports name Samsung Galaxy S8/S20/S22/S24 and Pixel 6a across Android 9 through 14, spanning 6 dot releases of the app over two years -- a single-device explanation does not fit a defect this wide or this durable."
+  },
+  {
+    "rank": 2,
+    "need": "Users have no way to stop bot/spam accounts from following them: there is no private/locked account option, and no way to remove an unwanted follower without blocking them.",
+    "confidence": 0.85,
+    "confidence_justification": "corroboration=1.0 (n=67 distinct reviews / 15 cap) * 0.35 = 0.35; signal_count=0.67 (n=67 / 100 cap) * 0.25 = 0.1675; latency=1.0 (span=396d / 365 cap) * 0.20 = 0.2; roadmap_disconfirmation=0.65 * 0.20 = 0.13. Sum=0.8475 -> rounded to nearest 0.05 = 0.85. Disconfirmation basis: #1155: open 1082d (2y+) and never scheduled to a milestone, despite recent comment activity; #1160: open 1081d (2y+) and never scheduled to a milestone, despite recent comment activity.",
+    "verdict": "UNDER-PRIORITIZED",
+    "verdict_justification": "67 independent reviews (2024-03-07 to 2025-04-07) describe this need. #1155: open 1082d (2y+) and never scheduled to a milestone, despite recent comment activity; #1160: open 1081d (2y+) and never scheduled to a milestone, despite recent comment activity",
+    "evidence": [
+      {
+        "id": "review-play-02336",
+        "excerpt_or_paraphrase": "Has room for improvement. For example: needs ability to make locked/private accounts. Needs a bookmark feature. Maybe the ability to show/hide our likes tab on our profile. Sometimes I like to share art I've found with friends this way. Moderation could do with some tweaking as I",
+        "weight": "primary"
+      },
+      {
+        "id": "review-play-04510",
+        "excerpt_or_paraphrase": "Needs a way to remove individual unwanted followers. There are enough users that I'm now starting to get fake account follows and I want to remove them.",
+        "weight": "corroborating"
+      },
+      {
+        "id": "github-issue-1155",
+        "excerpt_or_paraphrase": "Private/Locked accounts  The option to make your account \"private\" as in only your followers can see your posts.",
+        "weight": "corroborating"
+      },
+      {
+        "id": "github-issue-1160",
+        "excerpt_or_paraphrase": "Ability to remove a follower  Feature request: Ability to remove a follower from your followers, either via soft block (block and unblock) or via a simple remove process.\r \r At present if you block someone, and then unblock them later they are still following you .. this can be u",
+        "weight": "corroborating"
+      }
+    ],
+    "roadmap_refs": [
+      {
+        "id": "github-issue-1155",
+        "relation": "exact match: request for private/locked accounts"
+      },
+      {
+        "id": "github-issue-1160",
+        "relation": "exact match: request for ability to remove a follower without blocking"
+      }
+    ],
+    "rejected_alternative_explanations": "Could this just be generic anti-spam sentiment rather than a specific, buildable feature ask? Ruled out: the review text converges on two concrete, named feature requests (account privacy toggle, follower removal) that already match filed, multi-hundred-comment GitHub issues -- this is not vague dissatisfaction, it is a request the team has already scoped."
+  },
+  {
+    "rank": 3,
+    "need": "Follower counts and follower lists don't reflect reality: blocked accounts still count as followers and still appear in follower lists, and displayed follower counts are simply inconsistent/wrong on refresh.",
+    "confidence": 0.65,
+    "confidence_justification": "corroboration=1.0 (n=15 distinct reviews / 15 cap) * 0.35 = 0.35; signal_count=0.15 (n=15 / 100 cap) * 0.25 = 0.0375; latency=0.6219 (span=227d / 365 cap) * 0.20 = 0.1244; roadmap_disconfirmation=0.8 * 0.20 = 0.16. Sum=0.6719 -> rounded to nearest 0.05 = 0.65. Disconfirmation basis: #853: no milestone AND stale (604d since last update, threshold 180d); #7370: no milestone AND stale (187d since last update, threshold 180d).",
+    "verdict": "UNDER-PRIORITIZED",
+    "verdict_justification": "15 independent reviews (2024-09-03 to 2025-04-18) describe this need. #853: no milestone AND stale (604d since last update, threshold 180d); #7370: no milestone AND stale (187d since last update, threshold 180d)",
+    "evidence": [
+      {
+        "id": "review-play-07735",
+        "excerpt_or_paraphrase": "It's ok if u want smthg better than toxic X..downsides to this app are: u can't set profile private, blocks are public (meaning they're still part of follower count)..but can't interact. Needs edit button..or you will have to delete & redo post, which is very annoying. Needs an a",
+        "weight": "primary"
+      },
+      {
+        "id": "review-play-05862",
+        "excerpt_or_paraphrase": "Need to have the ability to make accounts private, remove blocked followers and there are too many spam accounts wanting to follow.",
+        "weight": "corroborating"
+      },
+      {
+        "id": "github-issue-853",
+        "excerpt_or_paraphrase": "Blocked people are still able to follow and show up in the followers also follower count  I tried to fix it:\r \r _appendAll(res: GetFollowers.Response) {\r   this.loadMoreCursor = res.data.cursor;\r   this.hasMore = !!this.loadMoreCursor;\r   const filteredFollowers = res.data.follow",
+        "weight": "corroborating"
+      },
+      {
+        "id": "github-issue-7370",
+        "excerpt_or_paraphrase": "Follower count is incorrect  ### Steps to Reproduce  1. Go to profile page (my page is @stonemilled.bsky.socal)\r 2. Click 12 followers\r 3. Note that there are not 12 followers. This weirdly varies how many it shows (on some renders it shows spam bots, on others it doesn't)  ### A",
+        "weight": "corroborating"
+      }
+    ],
+    "roadmap_refs": [
+      {
+        "id": "github-issue-853",
+        "relation": "exact match: blocked accounts still counted/shown as followers"
+      },
+      {
+        "id": "github-issue-7370",
+        "relation": "exact match: follower count displays incorrect/inconsistent number"
+      }
+    ],
+    "rejected_alternative_explanations": "Could this be the same underlying need as the private-account gap above, just double-counted? Ruled out: this cluster reports a data-integrity bug (the number/list is factually wrong) rather than a missing privacy control (no way to prevent following in the first place) -- different roadmap issues, different fixes, kept as a separate gap. Only 1 review overlaps between the two evidence sets."
+  }
+]
