@@ -6,11 +6,13 @@
 <title>The Silent Stakeholder — Bluesky Gap Analysis</title>
 <style>
   /* ---------------------------------------------------------------------
-     Design system: "case file / evidence ledger." Cool paper, ink text,
-     one structural accent (ledger blue) reused as the confidence sequential
-     ramp, three reserved flag colors for the three verdicts. All pairs
-     below were checked against WCAG contrast formulas before shipping,
-     not eyeballed -- see commit message for the numbers.
+     Design system: quiet evidence ledger. Cool paper, ink text, one
+     structural accent (ledger blue) reused as the confidence sequential
+     ramp, three reserved flag colors used only as quiet bordered-tag
+     text/border (not solid fills) for the three verdicts. Sentence case
+     throughout; mono reserved for anything quantitative or an ID. All
+     text/background pairs checked against the WCAG contrast formula
+     before shipping -- see commit message for the numbers.
      --------------------------------------------------------------------- */
   :root {
     color-scheme: light;
@@ -20,9 +22,8 @@
     --rule:        #c8cacd;
     --ledger:      #1d3f6e;
     --flag-red:    #8c1c13;
-    --flag-amber:  #8a6a12;
+    --flag-amber:  #84630f;
     --flag-violet: #5b3568;
-    --tag-text:    #ffffff;
     --rubric-1: #14315c;
     --rubric-2: #2c568f;
     --rubric-3: #5a85b8;
@@ -39,7 +40,6 @@
       --flag-red:    #d97467;
       --flag-amber:  #d1ab4d;
       --flag-violet: #b48ec9;
-      --tag-text:    #0b0c0e;
       --rubric-1: #cfe0f2;
       --rubric-2: #9dbfe0;
       --rubric-3: #6f97c4;
@@ -56,7 +56,6 @@
     --flag-red:    #d97467;
     --flag-amber:  #d1ab4d;
     --flag-violet: #b48ec9;
-    --tag-text:    #0b0c0e;
     --rubric-1: #cfe0f2;
     --rubric-2: #9dbfe0;
     --rubric-3: #6f97c4;
@@ -101,51 +100,47 @@
 
   section h2 {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.08em;
+    font-size: 13px; letter-spacing: 0.02em;
     color: var(--ink-muted); margin: 44px 0 18px; font-weight: 600;
-    padding-bottom: 8px; border-bottom: 1px solid var(--rule);
+    padding-bottom: 8px; border-bottom: 0.5px solid var(--rule);
   }
 
-  /* Gap card -- flat, ruled "docket," no drop shadows */
+  /* Gap card -- quiet: thin border, soft radius, generous padding, no shadow */
   .gap-card {
     background: var(--paper);
-    border: 1px solid var(--rule);
-    border-left: 3px solid var(--ink);
-    padding: 22px 24px;
+    border: 0.5px solid var(--rule);
+    border-radius: 12px;
+    padding: 28px 30px;
     margin-bottom: 24px;
   }
 
-  .docket-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-bottom: 16px; }
-  .rank {
+  .gap-header { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 14px; margin-bottom: 18px; }
+  .gap-id {
+    flex-shrink: 0; padding-top: 3px;
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-variant-numeric: tabular-nums;
-    font-size: 15px; font-weight: 700; color: var(--ledger); letter-spacing: 0.02em;
+    font-size: 13px; font-weight: 600; color: var(--ledger); letter-spacing: 0.02em;
+  }
+  .need {
+    flex: 1 1 260px; margin: 0;
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    font-size: 19px; font-weight: 500; line-height: 1.42; color: var(--ink);
   }
 
+  /* Verdict: quiet bordered tag, plain colored text -- not a bold filled pill */
   .verdict-tag {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
-    padding: 4px 10px; border-radius: 3px; color: var(--tag-text); white-space: nowrap;
+    display: inline-flex; align-items: center; flex-shrink: 0;
+    font-size: 12.5px; font-weight: 600; letter-spacing: 0.01em;
+    padding: 4px 11px; border-radius: 6px; white-space: nowrap;
+    background: transparent; border: 0.5px solid currentColor;
   }
-  .verdict-tag .tag-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.85; }
-  .verdict-IGNORED           { background: var(--flag-red); }
-  .verdict-UNDER-PRIORITIZED { background: var(--flag-amber); }
-  .verdict-MISUNDERSTOOD     { background: var(--flag-violet); }
-
-  .team-badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 12px; font-weight: 600; letter-spacing: 0.02em;
-    padding: 4px 10px; border-radius: 3px; white-space: nowrap;
-    border: 1px solid var(--ledger); color: var(--ledger); background: transparent;
-  }
-  .team-badge.team-unavailable { border-color: var(--rule); color: var(--ink-muted); }
-  .team-cc { font-size: 12px; color: var(--ink-muted); }
-  .muted-note { color: var(--ink-muted); font-style: italic; font-size: 14px; }
+  .verdict-IGNORED           { color: var(--flag-red); }
+  .verdict-UNDER-PRIORITIZED { color: var(--flag-amber); }
+  .verdict-MISUNDERSTOOD     { color: var(--flag-violet); }
 
   /* Confidence: the big figure + the rubric-math signature bar */
   .confidence-row {
     display: flex; align-items: flex-end; gap: 22px; flex-wrap: wrap;
-    padding: 14px 0 18px; border-bottom: 1px solid var(--rule); margin-bottom: 18px;
+    padding: 4px 0 18px; border-bottom: 0.5px solid var(--rule); margin-bottom: 16px;
   }
   .confidence-figure {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -156,7 +151,7 @@
   .confidence-figure .cf-max { font-size: 15px; color: var(--ink-muted); font-weight: 500; }
 
   .rubric-wrap { flex: 1; min-width: 220px; }
-  .rubric-bar { display: flex; height: 14px; border: 1px solid var(--rule); overflow: hidden; }
+  .rubric-bar { display: flex; height: 14px; border: 0.5px solid var(--rule); border-radius: 3px; overflow: hidden; }
   .rubric-seg { height: 100%; }
   .rubric-seg + .rubric-seg { border-left: 1px solid var(--paper); }
   .rubric-ticks { display: flex; justify-content: space-between; margin-top: 3px; }
@@ -166,21 +161,32 @@
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: 11.5px; color: var(--ink-muted);
   }
-  .rubric-legend i { display: inline-block; width: 8px; height: 8px; margin-right: 5px; vertical-align: middle; }
+  .rubric-legend i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 5px; vertical-align: middle; }
 
-  .need {
-    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
-    font-size: 20px; font-weight: 500; line-height: 1.42;
-    margin: 0 0 18px; color: var(--ink);
+  /* Team badge + quiet inline metadata -- metadata must not compete with the badge */
+  .meta-row {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 10px 14px; margin: 0 0 20px;
   }
+  .team-badge {
+    display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0;
+    font-size: 12.5px; font-weight: 600;
+    padding: 3px 10px; border-radius: 6px; white-space: nowrap;
+    border: 0.5px solid var(--ledger); color: var(--ledger); background: transparent;
+  }
+  .team-badge.team-unavailable { border-color: var(--rule); color: var(--ink-muted); }
+  .team-cc { font-size: 12.5px; color: var(--ink-muted); }
+  .quiet-meta {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px; color: var(--ink-muted);
+  }
+  .muted-note { color: var(--ink-muted); font-style: italic; font-size: 14px; }
 
   /* Expandable "proof" sections */
-  details { border-top: 1px solid var(--rule); }
+  details { border-top: 0.5px solid var(--rule); }
   summary {
     cursor: pointer; padding: 10px 0; user-select: none; list-style: none;
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 12.5px; font-weight: 600; color: var(--ledger);
-    text-transform: uppercase; letter-spacing: 0.03em;
+    font-size: 12.5px; font-weight: 600; color: var(--ledger); letter-spacing: 0.01em;
   }
   summary::-webkit-details-marker { display: none; }
   summary::before { content: "▸ "; }
@@ -190,7 +196,7 @@
 
   .block-label {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+    font-size: 11px; letter-spacing: 0.02em;
     color: var(--ink-muted); margin: 18px 0 8px; font-weight: 700;
   }
   .block-label:first-child { margin-top: 0; }
@@ -198,60 +204,54 @@
   .math-block {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: 12.5px; line-height: 1.65; color: var(--ink);
-    border: 1px solid var(--rule); border-left: 2px solid var(--ledger);
+    border: 0.5px solid var(--rule); border-radius: 6px;
     padding: 12px 14px; white-space: pre-wrap; word-break: break-word;
   }
 
-  .evidence-item { padding: 12px 0; border-top: 1px solid var(--rule); }
-  .evidence-item:first-child { border-top: none; }
-  .exhibit-label {
-    display: block; margin-bottom: 4px;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
-    color: var(--ink-muted);
+  /* Evidence & roadmap refs: clean two-column rows, no bullets, no nested cards */
+  .evidence-row, .ref-row {
+    display: flex; gap: 16px; padding: 12px 0; border-top: 0.5px solid var(--rule);
   }
-  .ev-id { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; color: var(--ledger); }
-  .weight-badge {
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;
-    padding: 1px 6px; margin-right: 8px; border: 1px solid var(--rule); color: var(--ink-muted);
+  .evidence-row:first-child, .ref-row:first-child { border-top: none; }
+  .ev-id-col, .ref-id-col {
+    flex: 0 0 150px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px;
   }
-  .weight-primary { border-color: var(--ledger); color: var(--ledger); }
-  .ev-text { color: var(--ink); margin-top: 4px; font-size: 14.5px; line-height: 1.5; }
-
-  .ref-item { padding: 10px 0; border-top: 1px solid var(--rule); font-size: 14px; color: var(--ink); }
-  .ref-item:first-child { border-top: none; }
+  .ev-id-col a, .ref-id-col a { color: var(--ledger); }
+  .ev-weight { display: block; font-family: system-ui, sans-serif; font-size: 11px; color: var(--ink-muted); margin-top: 3px; }
+  .ev-excerpt { flex: 1; font-style: italic; color: var(--ink); font-size: 14.5px; line-height: 1.5; }
+  .ref-relation { flex: 1; color: var(--ink); font-size: 14px; line-height: 1.5; }
+  .plain-text { color: var(--ink); font-size: 14.5px; line-height: 1.5; }
 
   a.ev-link { color: var(--ledger); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 2px; }
   a.ev-link:hover { text-decoration-color: currentColor; }
 
   .alt-explanation { font-size: 14px; color: var(--ink-muted); font-style: italic; margin-top: 4px; line-height: 1.5; }
 
-  /* Rejected candidates -- visually distinct "ruled out," not a 4th verdict color */
+  /* Rejected candidates -- muted/deprioritized, same card language, quieter still */
   .rejected-card {
-    border: 1px solid var(--rule); border-left: 3px solid var(--ink-muted);
-    padding: 16px 20px; margin-bottom: 16px;
+    border: 0.5px solid var(--rule); border-radius: 12px;
+    padding: 22px 26px; margin-bottom: 16px;
   }
   .ruled-out-tag {
     display: inline-block; margin-bottom: 8px;
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
-    color: var(--ink-muted); border: 1px solid var(--rule); padding: 2px 8px; border-radius: 2px;
+    font-size: 10.5px; letter-spacing: 0.03em;
+    color: var(--ink-muted); border: 0.5px solid var(--rule); padding: 2px 8px; border-radius: 5px;
   }
   .rejected-card h3 {
     font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
-    font-size: 16px; font-weight: 500; margin: 0 0 8px; color: var(--ink);
+    font-size: 16px; font-weight: 500; margin: 0 0 8px; color: var(--ink-muted);
   }
   .rejected-reason { font-size: 14px; color: var(--ink-muted); line-height: 1.5; }
   .rejected-ids { margin-top: 8px; font-size: 11.5px; color: var(--ink-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 
   .error-banner {
-    border: 1px solid var(--flag-red); border-left: 3px solid var(--flag-red);
+    border: 0.5px solid var(--flag-red); border-radius: 8px;
     color: var(--ink); padding: 14px 18px; font-size: 14px; margin-bottom: 20px;
   }
   .error-banner code {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    background: var(--rule); padding: 1px 5px; border-radius: 2px;
+    background: var(--rule); padding: 1px 5px; border-radius: 4px;
   }
   .loading { color: var(--ink-muted); font-size: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 
@@ -260,8 +260,9 @@
     h1 { font-size: 22px; }
     .confidence-figure { font-size: 30px; min-width: 0; }
     .need { font-size: 18px; }
-    .docket-row { gap: 8px 10px; }
-    .gap-card { padding: 18px 16px; }
+    .gap-card { padding: 20px 18px; }
+    .evidence-row, .ref-row { flex-direction: column; gap: 4px; }
+    .ev-id-col, .ref-id-col { flex: none; }
   }
 </style>
 </head>
@@ -292,9 +293,10 @@ const API_BASE = "http://127.0.0.1:8420"; // not port 8000: Docker Desktop's bac
 const REPO_URL = "https://github.com/bluesky-social/social-app";
 
 // The four rubric weights are fixed by SPEC.md's formula; the per-gap
-// contribution VALUES (factor * weight) are parsed out of the already-
-// fetched confidence_justification string below, purely for rendering --
-// no new fetch, no change to what data the API returns.
+// contribution VALUES (factor * weight), review count, and complaint span
+// are all parsed out of the already-fetched confidence_justification string
+// below, purely for rendering -- no new fetch, no change to what data the
+// API returns.
 const RUBRIC_FACTORS = [
   { key: "corroboration",            label: "corrob", css: "--rubric-1" },
   { key: "signal_count",             label: "sig",    css: "--rubric-2" },
@@ -304,6 +306,11 @@ const RUBRIC_FACTORS = [
 
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+function toSentenceCase(s) {
+  const lower = String(s).toLowerCase();
+  return lower.charAt(0).toUpperCase() + lower.slice(1);
 }
 
 function evidenceLink(id) {
@@ -338,19 +345,39 @@ function renderRubricBar(justification) {
     </div>`;
 }
 
+function parseReviewCount(justification) {
+  const m = justification.match(/n=(\d+) distinct reviews/);
+  return m ? parseInt(m[1], 10) : null;
+}
+
+function parseSpanDays(justification) {
+  const m = justification.match(/span=(\d+)d/);
+  return m ? parseInt(m[1], 10) : null;
+}
+
+function renderQuietMeta(gap) {
+  const n = parseReviewCount(gap.confidence_justification);
+  const span = parseSpanDays(gap.confidence_justification);
+  const refs = gap.roadmap_refs || [];
+  const issueMatch = refs.length ? refs[0].id.match(/^github-issue-(\d+)$/) : null;
+
+  const parts = [];
+  if (n !== null) parts.push(`${n} reports`);
+  if (span !== null) parts.push(`${span}d span`);
+  if (issueMatch) parts.push(`#${issueMatch[1]}${refs.length > 1 ? ` +${refs.length - 1}` : ""}`);
+  return parts.length ? `<span class="quiet-meta">${escapeHtml(parts.join(" · "))}</span>` : "";
+}
+
 function renderEvidence(evidence) {
-  return evidence.map((e, i) => {
+  return evidence.map(e => {
     const link = evidenceLink(e.id);
     const idHtml = link
       ? `<a class="ev-link" href="${link}" target="_blank" rel="noopener">${escapeHtml(e.id)}</a>`
-      : `<span class="ev-id">${escapeHtml(e.id)}</span>`;
-    const weightClass = e.weight === "primary" ? "weight-primary" : "";
-    const exhibitLetter = String.fromCharCode(65 + i);
+      : escapeHtml(e.id);
     return `
-      <div class="evidence-item">
-        <span class="exhibit-label">Exhibit ${exhibitLetter}</span>
-        <span class="weight-badge ${weightClass}">${escapeHtml(e.weight)}</span>${idHtml}
-        <div class="ev-text">${escapeHtml(e.excerpt_or_paraphrase)}</div>
+      <div class="evidence-row">
+        <div class="ev-id-col">${idHtml}<span class="ev-weight">${escapeHtml(e.weight)}</span></div>
+        <div class="ev-excerpt">“${escapeHtml(e.excerpt_or_paraphrase)}”</div>
       </div>`;
   }).join("");
 }
@@ -360,8 +387,12 @@ function renderRefs(refs) {
     const link = evidenceLink(r.id);
     const idHtml = link
       ? `<a class="ev-link" href="${link}" target="_blank" rel="noopener">${escapeHtml(r.id)}</a>`
-      : `<span class="ev-id">${escapeHtml(r.id)}</span>`;
-    return `<div class="ref-item">${idHtml} — ${escapeHtml(r.relation)}</div>`;
+      : escapeHtml(r.id);
+    return `
+      <div class="ref-row">
+        <div class="ref-id-col">${idHtml}</div>
+        <div class="ref-relation">${escapeHtml(r.relation)}</div>
+      </div>`;
   }).join("");
 }
 
@@ -390,7 +421,7 @@ function renderNotificationSection(notif) {
       <summary>Drafted notification</summary>
       <div class="detail-body">
         <div class="block-label">Subject</div>
-        <div class="ev-text">${escapeHtml(notif.subject)}</div>
+        <div class="plain-text">${escapeHtml(notif.subject)}</div>
         <div class="block-label">Draft</div>
         <div class="math-block">${escapeHtml(notif.body_text)}</div>
       </div>
@@ -401,21 +432,27 @@ function renderGap(gap) {
   const rankPadded = String(gap.rank).padStart(2, "0");
   return `
     <article class="gap-card" id="gap-${gap.rank}">
-      <div class="docket-row">
-        <span class="rank">N&deg; ${rankPadded}</span>
-        <span class="verdict-tag verdict-${escapeHtml(gap.verdict)}"><span class="tag-dot"></span>${escapeHtml(gap.verdict)}</span>
-        ${renderTeamBadge(gap._routing)}
+      <div class="gap-header">
+        <span class="gap-id">GAP-${rankPadded}</span>
+        <h3 class="need">${escapeHtml(gap.need)}</h3>
+        <span class="verdict-tag verdict-${escapeHtml(gap.verdict)}">${escapeHtml(toSentenceCase(gap.verdict))}</span>
       </div>
+
       <div class="confidence-row">
         <div class="confidence-figure">${gap.confidence.toFixed(2)}<span class="cf-max">/1.00</span></div>
         ${renderRubricBar(gap.confidence_justification)}
       </div>
-      <h3 class="need">${escapeHtml(gap.need)}</h3>
+
+      <div class="meta-row">
+        ${renderTeamBadge(gap._routing)}
+        ${renderQuietMeta(gap)}
+      </div>
+
       <details>
-        <summary>Evidence &amp; rubric math — ${gap.evidence.length} exhibits</summary>
+        <summary>Evidence &amp; rubric math — ${gap.evidence.length} sources</summary>
         <div class="detail-body">
           <div class="block-label">Verdict basis</div>
-          <div class="ev-text">${escapeHtml(gap.verdict_justification)}</div>
+          <div class="plain-text">${escapeHtml(gap.verdict_justification)}</div>
 
           <div class="block-label">Confidence math (full working)</div>
           <div class="math-block">${escapeHtml(gap.confidence_justification)}</div>
