@@ -4,6 +4,8 @@ Pipeline: `scripts/01_normalize_reviews.py` -> `scripts/02_fetch_github_roadmap.
 -> `scripts/03_infer_gaps.py` -> `scripts/04_generate_report.py`, output at
 `output/gaps.json` / `output/gaps.md`. See `SPEC.md` for the locked contract.
 
+See `ARCHITECTURE.md` for a full pipeline breakdown.
+
 ## Running the API
 
 ```
