@@ -6,7 +6,7 @@ Requires: pip install pytest httpx
 """
 from fastapi.testclient import TestClient
 
-from backend.app import app, GAPS
+from backend.app import app, GAPS, ROUTING, NOTIFICATIONS
 
 client = TestClient(app)
 
@@ -16,6 +16,7 @@ GAP_KEYS = {
     "verdict_justification", "evidence", "roadmap_refs",
     "rejected_alternative_explanations",
 }
+TEAMS = {"WEB_FRONTEND", "BACKEND_API", "MOBILE_CLIENT", "TRUST_SAFETY", "INFRA_PLATFORM", "UNCLEAR"}
 
 
 def test_health():
@@ -58,3 +59,31 @@ def test_rejected_returns_200_and_a_list():
     assert isinstance(rejected, list) and len(rejected) > 0
     for rec in rejected:
         assert "need" in rec and "reason" in rec
+
+
+def test_routing_returns_200_and_valid_records():
+    resp = client.get("/routing")
+    assert resp.status_code == 200
+    routing = resp.json()
+    assert isinstance(routing, list) and len(routing) == len(GAPS)
+    for rec in routing:
+        assert rec["team"] in TEAMS
+        assert "reasoning" in rec and len(rec["reasoning"]) > 0
+        assert "gap_rank" in rec
+        assert isinstance(rec.get("cc_teams", []), list)
+
+
+def test_notification_by_valid_rank_returns_the_right_draft():
+    target_rank = GAPS[0]["rank"]
+    resp = client.get(f"/notifications/{target_rank}")
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["gap_rank"] == target_rank
+    assert data == NOTIFICATIONS[target_rank]
+    for key in ("subject", "body_text", "team", "to_address"):
+        assert key in data
+
+
+def test_notification_by_invalid_rank_returns_404():
+    resp = client.get("/notifications/9999")
+    assert resp.status_code == 404

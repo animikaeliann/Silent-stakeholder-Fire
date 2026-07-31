@@ -17,6 +17,8 @@ from fastapi.middleware.cors import CORSMiddleware
 ROOT = Path(__file__).resolve().parent.parent
 GAPS_PATH = ROOT / "output" / "gaps.json"
 REJECTED_PATH = ROOT / "output" / "rejected_candidates.jsonl"
+ROUTING_PATH = ROOT / "output" / "team_routing.json"
+NOTIFICATIONS_DIR = ROOT / "output" / "team_notifications"
 
 
 def load_gaps():
@@ -26,6 +28,27 @@ def load_gaps():
 def load_rejected():
     with open(REJECTED_PATH) as f:
         return [json.loads(line) for line in f if line.strip()]
+
+
+def load_routing():
+    if not ROUTING_PATH.exists():
+        return []
+    return json.loads(ROUTING_PATH.read_text())
+
+
+def load_notifications():
+    """Map gap_rank -> parsed notification draft, read from
+    output/team_notifications/gap_{rank}_{team}.json (team slug varies per
+    gap, so this globs rather than assuming a filename)."""
+    notifications = {}
+    if not NOTIFICATIONS_DIR.exists():
+        return notifications
+    for path in NOTIFICATIONS_DIR.glob("gap_*.json"):
+        data = json.loads(path.read_text())
+        rank = data.get("gap_rank")
+        if rank is not None:
+            notifications[rank] = data
+    return notifications
 
 
 app = FastAPI(title="The Silent Stakeholder — Gap Analysis API")
@@ -39,6 +62,8 @@ app.add_middleware(
 
 GAPS = load_gaps()
 REJECTED = load_rejected()
+ROUTING = load_routing()
+NOTIFICATIONS = load_notifications()
 
 
 @app.get("/health")
@@ -62,3 +87,15 @@ def get_gap(rank: int):
 @app.get("/rejected")
 def get_rejected():
     return REJECTED
+
+
+@app.get("/routing")
+def get_routing():
+    return ROUTING
+
+
+@app.get("/notifications/{gap_rank}")
+def get_notification(gap_rank: int):
+    if gap_rank not in NOTIFICATIONS:
+        raise HTTPException(status_code=404, detail=f"no drafted notification for gap {gap_rank}")
+    return NOTIFICATIONS[gap_rank]
