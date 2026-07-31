@@ -5,172 +5,264 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Silent Stakeholder — Bluesky Gap Analysis</title>
 <style>
+  /* ---------------------------------------------------------------------
+     Design system: "case file / evidence ledger." Cool paper, ink text,
+     one structural accent (ledger blue) reused as the confidence sequential
+     ramp, three reserved flag colors for the three verdicts. All pairs
+     below were checked against WCAG contrast formulas before shipping,
+     not eyeballed -- see commit message for the numbers.
+     --------------------------------------------------------------------- */
   :root {
     color-scheme: light;
-    --page:           #f9f9f7;
-    --surface:        #fcfcfb;
-    --text-primary:   #0b0b0b;
-    --text-secondary: #52514e;
-    --text-muted:     #898781;
-    --gridline:       #e1e0d9;
-    --border:         rgba(11,11,11,0.10);
-    --seq-100: #cde2fb; --seq-250: #86b6ef; --seq-450: #2a78d6; --seq-650: #104281;
-    --status-good:     #0ca30c;
-    --status-warning:  #fab219;
-    --status-serious:  #ec835a;
-    --status-critical: #d03b3b;
+    --paper:       #eef1f3;
+    --ink:         #1b1d22;
+    --ink-muted:   #6b6d71;
+    --rule:        #c8cacd;
+    --ledger:      #1d3f6e;
+    --flag-red:    #8c1c13;
+    --flag-amber:  #8a6a12;
+    --flag-violet: #5b3568;
+    --tag-text:    #ffffff;
+    --rubric-1: #14315c;
+    --rubric-2: #2c568f;
+    --rubric-3: #5a85b8;
+    --rubric-4: #a3c0dd;
   }
   @media (prefers-color-scheme: dark) {
     :root:where(:not([data-theme="light"])) {
       color-scheme: dark;
-      --page:           #0d0d0d;
-      --surface:        #1a1a19;
-      --text-primary:   #ffffff;
-      --text-secondary: #c3c2b7;
-      --text-muted:     #898781;
-      --gridline:       #2c2c2a;
-      --border:         rgba(255,255,255,0.10);
-      --seq-100: #cde2fb; --seq-250: #86b6ef; --seq-450: #3987e5; --seq-650: #104281;
-      --status-good:     #0ca30c;
-      --status-warning:  #fab219;
-      --status-serious:  #ec835a;
-      --status-critical: #e66767;
+      --paper:       #14161a;
+      --ink:         #eceef0;
+      --ink-muted:   #a2a4a7;
+      --rule:        #3f4144;
+      --ledger:      #7fa8d9;
+      --flag-red:    #d97467;
+      --flag-amber:  #d1ab4d;
+      --flag-violet: #b48ec9;
+      --tag-text:    #0b0c0e;
+      --rubric-1: #cfe0f2;
+      --rubric-2: #9dbfe0;
+      --rubric-3: #6f97c4;
+      --rubric-4: #445f8a;
     }
   }
   :root[data-theme="dark"] {
     color-scheme: dark;
-    --page:           #0d0d0d;
-    --surface:        #1a1a19;
-    --text-primary:   #ffffff;
-    --text-secondary: #c3c2b7;
-    --text-muted:     #898781;
-    --gridline:       #2c2c2a;
-    --border:         rgba(255,255,255,0.10);
-    --seq-450: #3987e5; --seq-650: #104281;
-    --status-critical: #e66767;
+    --paper:       #14161a;
+    --ink:         #eceef0;
+    --ink-muted:   #a2a4a7;
+    --rule:        #3f4144;
+    --ledger:      #7fa8d9;
+    --flag-red:    #d97467;
+    --flag-amber:  #d1ab4d;
+    --flag-violet: #b48ec9;
+    --tag-text:    #0b0c0e;
+    --rubric-1: #cfe0f2;
+    --rubric-2: #9dbfe0;
+    --rubric-3: #6f97c4;
+    --rubric-4: #445f8a;
   }
 
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body {
-    background: var(--page);
-    color: var(--text-primary);
+    background: var(--paper);
+    color: var(--ink);
     font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-    font-size: 18px;
-    line-height: 1.5;
-    padding: 32px 24px 80px;
-    max-width: 980px;
+    font-size: 17px;
+    line-height: 1.55;
+    padding: 40px 24px 96px;
+    max-width: 920px;
     margin: 0 auto;
   }
 
-  header { margin-bottom: 32px; }
-  h1 { font-size: 30px; margin: 0 0 8px; letter-spacing: -0.01em; }
-  .subtitle { color: var(--text-secondary); font-size: 16px; max-width: 70ch; }
-  .status-line {
-    margin-top: 14px; font-size: 14px; color: var(--text-muted);
-    display: flex; align-items: center; gap: 8px;
+  :focus-visible { outline: 2px solid var(--ledger); outline-offset: 2px; border-radius: 2px; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .gap-card, a, summary { transition: border-color 120ms ease, background-color 120ms ease; }
   }
-  .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; background: var(--text-muted); }
-  .dot.ok { background: var(--status-good); }
-  .dot.err { background: var(--status-critical); }
+
+  /* Masthead -- ruled letterhead, no gradient/hero */
+  header { margin-bottom: 8px; padding-bottom: 18px; border-bottom: 2px solid var(--ink); }
+  header::after { content: ""; display: block; height: 1px; background: var(--rule); margin-top: 6px; }
+  h1 {
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    font-size: 27px; font-weight: 600; margin: 0 0 10px; letter-spacing: -0.005em;
+  }
+  .subtitle { color: var(--ink-muted); font-size: 15px; max-width: 68ch; line-height: 1.5; }
+  .status-line {
+    margin-top: 16px; font-size: 12.5px; color: var(--ink-muted);
+    display: flex; align-items: center; gap: 8px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; background: var(--ink-muted); flex-shrink: 0; }
+  .dot.ok  { background: var(--ledger); }
+  .dot.err { background: var(--flag-red); }
 
   section h2 {
-    font-size: 15px; text-transform: uppercase; letter-spacing: 0.06em;
-    color: var(--text-muted); margin: 40px 0 16px; font-weight: 600;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-muted); margin: 44px 0 18px; font-weight: 600;
+    padding-bottom: 8px; border-bottom: 1px solid var(--rule);
   }
 
+  /* Gap card -- flat, ruled "docket," no drop shadows */
   .gap-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px 28px;
-    margin-bottom: 20px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--ink);
+    padding: 22px 24px;
+    margin-bottom: 24px;
   }
-  .gap-head { display: flex; gap: 18px; align-items: flex-start; }
-  .rank {
-    font-size: 34px; font-weight: 800; color: var(--text-muted);
-    min-width: 56px; line-height: 1;
-  }
-  .gap-body { flex: 1; min-width: 0; }
-  .need { font-size: 21px; font-weight: 600; margin: 0 0 12px; }
 
-  .meta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 4px; }
+  .docket-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-bottom: 16px; }
+  .rank {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 15px; font-weight: 700; color: var(--ledger); letter-spacing: 0.02em;
+  }
 
   .verdict-tag {
     display: inline-flex; align-items: center; gap: 6px;
-    font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;
-    padding: 5px 12px; border-radius: 999px; color: #1a1a19; white-space: nowrap;
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 4px 10px; border-radius: 3px; color: var(--tag-text); white-space: nowrap;
   }
-  .verdict-tag .swatch { width: 9px; height: 9px; border-radius: 50%; background: currentColor; }
-  .verdict-IGNORED          { background: var(--status-critical); color: #ffffff; }
-  .verdict-UNDER-PRIORITIZED{ background: var(--status-warning);  color: #1a1a19; }
-  .verdict-MISUNDERSTOOD    { background: var(--status-serious);  color: #1a1a19; }
+  .verdict-tag .tag-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.85; }
+  .verdict-IGNORED           { background: var(--flag-red); }
+  .verdict-UNDER-PRIORITIZED { background: var(--flag-amber); }
+  .verdict-MISUNDERSTOOD     { background: var(--flag-violet); }
 
-  .confidence-wrap { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 180px; }
-  .confidence-track {
-    flex: 1; height: 10px; border-radius: 6px; background: var(--gridline); overflow: hidden;
+  .team-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.02em;
+    padding: 4px 10px; border-radius: 3px; white-space: nowrap;
+    border: 1px solid var(--ledger); color: var(--ledger); background: transparent;
   }
-  .confidence-fill { height: 100%; background: var(--seq-450); border-radius: 6px; }
-  .confidence-num { font-weight: 700; font-variant-numeric: tabular-nums; min-width: 3.2ch; }
+  .team-badge.team-unavailable { border-color: var(--rule); color: var(--ink-muted); }
+  .team-cc { font-size: 12px; color: var(--ink-muted); }
+  .muted-note { color: var(--ink-muted); font-style: italic; font-size: 14px; }
 
-  details { margin-top: 16px; }
+  /* Confidence: the big figure + the rubric-math signature bar */
+  .confidence-row {
+    display: flex; align-items: flex-end; gap: 22px; flex-wrap: wrap;
+    padding: 14px 0 18px; border-bottom: 1px solid var(--rule); margin-bottom: 18px;
+  }
+  .confidence-figure {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 38px; font-weight: 700; color: var(--ink); line-height: 1;
+    min-width: 92px;
+  }
+  .confidence-figure .cf-max { font-size: 15px; color: var(--ink-muted); font-weight: 500; }
+
+  .rubric-wrap { flex: 1; min-width: 220px; }
+  .rubric-bar { display: flex; height: 14px; border: 1px solid var(--rule); overflow: hidden; }
+  .rubric-seg { height: 100%; }
+  .rubric-seg + .rubric-seg { border-left: 1px solid var(--paper); }
+  .rubric-ticks { display: flex; justify-content: space-between; margin-top: 3px; }
+  .rubric-ticks span { width: 1px; height: 5px; background: var(--rule); display: block; }
+  .rubric-legend {
+    display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 8px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11.5px; color: var(--ink-muted);
+  }
+  .rubric-legend i { display: inline-block; width: 8px; height: 8px; margin-right: 5px; vertical-align: middle; }
+
+  .need {
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    font-size: 20px; font-weight: 500; line-height: 1.42;
+    margin: 0 0 18px; color: var(--ink);
+  }
+
+  /* Expandable "proof" sections */
+  details { border-top: 1px solid var(--rule); }
   summary {
-    cursor: pointer; font-size: 14px; font-weight: 600; color: var(--seq-450);
-    padding: 4px 0; user-select: none;
+    cursor: pointer; padding: 10px 0; user-select: none; list-style: none;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12.5px; font-weight: 600; color: var(--ledger);
+    text-transform: uppercase; letter-spacing: 0.03em;
   }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "▸ "; }
+  details[open] summary::before { content: "▾ "; }
   summary:hover { text-decoration: underline; }
-  .detail-body { margin-top: 14px; }
+  .detail-body { padding: 4px 0 16px; }
 
-  .block-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin: 16px 0 6px; font-weight: 700; }
+  .block-label {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-muted); margin: 18px 0 8px; font-weight: 700;
+  }
   .block-label:first-child { margin-top: 0; }
 
   .math-block {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 13px; line-height: 1.6; color: var(--text-secondary);
-    background: var(--page); border: 1px solid var(--gridline); border-radius: 8px;
+    font-size: 12.5px; line-height: 1.65; color: var(--ink);
+    border: 1px solid var(--rule); border-left: 2px solid var(--ledger);
     padding: 12px 14px; white-space: pre-wrap; word-break: break-word;
   }
 
-  .evidence-item, .ref-item {
-    padding: 10px 0; border-top: 1px solid var(--gridline); font-size: 15px;
+  .evidence-item { padding: 12px 0; border-top: 1px solid var(--rule); }
+  .evidence-item:first-child { border-top: none; }
+  .exhibit-label {
+    display: block; margin-bottom: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--ink-muted);
   }
-  .evidence-item:first-child, .ref-item:first-child { border-top: none; }
-  .ev-id { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+  .ev-id { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; color: var(--ledger); }
   .weight-badge {
-    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
-    padding: 1px 7px; border-radius: 5px; margin-right: 8px; color: var(--text-primary);
-    border: 1px solid var(--gridline);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;
+    padding: 1px 6px; margin-right: 8px; border: 1px solid var(--rule); color: var(--ink-muted);
   }
-  .weight-primary { border-color: var(--seq-450); color: var(--seq-450); }
-  .ev-text { color: var(--text-secondary); margin-top: 4px; }
-  a.ev-link { color: var(--seq-450); text-decoration: none; }
-  a.ev-link:hover { text-decoration: underline; }
+  .weight-primary { border-color: var(--ledger); color: var(--ledger); }
+  .ev-text { color: var(--ink); margin-top: 4px; font-size: 14.5px; line-height: 1.5; }
 
-  .alt-explanation { font-size: 15px; color: var(--text-secondary); font-style: italic; margin-top: 4px; }
+  .ref-item { padding: 10px 0; border-top: 1px solid var(--rule); font-size: 14px; color: var(--ink); }
+  .ref-item:first-child { border-top: none; }
 
-  .team-badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 13px; font-weight: 700; letter-spacing: 0.02em;
-    padding: 5px 12px; border-radius: 999px; white-space: nowrap;
-    border: 1px solid var(--seq-450); color: var(--seq-450); background: transparent;
-  }
-  .team-badge.team-unavailable { border-color: var(--gridline); color: var(--text-muted); }
-  .team-cc { font-size: 13px; color: var(--text-muted); }
-  .muted-note { color: var(--text-muted); font-style: italic; }
+  a.ev-link { color: var(--ledger); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 2px; }
+  a.ev-link:hover { text-decoration-color: currentColor; }
 
+  .alt-explanation { font-size: 14px; color: var(--ink-muted); font-style: italic; margin-top: 4px; line-height: 1.5; }
+
+  /* Rejected candidates -- visually distinct "ruled out," not a 4th verdict color */
   .rejected-card {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-    padding: 18px 22px; margin-bottom: 14px;
+    border: 1px solid var(--rule); border-left: 3px solid var(--ink-muted);
+    padding: 16px 20px; margin-bottom: 16px;
   }
-  .rejected-card h3 { font-size: 17px; margin: 0 0 8px; }
-  .rejected-reason { font-size: 15px; color: var(--text-secondary); }
-  .rejected-ids { margin-top: 8px; font-size: 12px; color: var(--text-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .ruled-out-tag {
+    display: inline-block; margin-bottom: 8px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--ink-muted); border: 1px solid var(--rule); padding: 2px 8px; border-radius: 2px;
+  }
+  .rejected-card h3 {
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    font-size: 16px; font-weight: 500; margin: 0 0 8px; color: var(--ink);
+  }
+  .rejected-reason { font-size: 14px; color: var(--ink-muted); line-height: 1.5; }
+  .rejected-ids { margin-top: 8px; font-size: 11.5px; color: var(--ink-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 
   .error-banner {
-    background: var(--status-critical); color: #fff; padding: 14px 18px; border-radius: 10px;
-    font-size: 15px; margin-bottom: 20px;
+    border: 1px solid var(--flag-red); border-left: 3px solid var(--flag-red);
+    color: var(--ink); padding: 14px 18px; font-size: 14px; margin-bottom: 20px;
   }
-  .loading { color: var(--text-muted); font-size: 15px; }
+  .error-banner code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: var(--rule); padding: 1px 5px; border-radius: 2px;
+  }
+  .loading { color: var(--ink-muted); font-size: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+  @media (max-width: 560px) {
+    body { font-size: 16px; padding: 24px 16px 72px; }
+    h1 { font-size: 22px; }
+    .confidence-figure { font-size: 30px; min-width: 0; }
+    .need { font-size: 18px; }
+    .docket-row { gap: 8px 10px; }
+    .gap-card { padding: 18px 16px; }
+  }
 </style>
 </head>
 <body>
@@ -199,6 +291,17 @@ const API_BASE = "http://127.0.0.1:8420"; // not port 8000: Docker Desktop's bac
 // nothing else holds the specific IPv4 address -- 8420 avoids the whole class of collision
 const REPO_URL = "https://github.com/bluesky-social/social-app";
 
+// The four rubric weights are fixed by SPEC.md's formula; the per-gap
+// contribution VALUES (factor * weight) are parsed out of the already-
+// fetched confidence_justification string below, purely for rendering --
+// no new fetch, no change to what data the API returns.
+const RUBRIC_FACTORS = [
+  { key: "corroboration",            label: "corrob", css: "--rubric-1" },
+  { key: "signal_count",             label: "sig",    css: "--rubric-2" },
+  { key: "latency",                  label: "lat",    css: "--rubric-3" },
+  { key: "roadmap_disconfirmation",  label: "disc",   css: "--rubric-4" },
+];
+
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
@@ -211,15 +314,41 @@ function evidenceLink(id) {
   return null;
 }
 
+function parseRubricContributions(justification) {
+  return RUBRIC_FACTORS.map(f => {
+    const re = new RegExp(f.key + "=\\d+\\.?\\d*.*?\\*\\s*[\\d.]+\\s*=\\s*(\\d+\\.?\\d*)");
+    const m = justification.match(re);
+    return { ...f, value: m ? parseFloat(m[1]) : 0 };
+  });
+}
+
+function renderRubricBar(justification) {
+  const contributions = parseRubricContributions(justification);
+  const segments = contributions.map(c =>
+    `<div class="rubric-seg" style="width:${(c.value * 100).toFixed(1)}%;background:var(${c.css})"></div>`
+  ).join("");
+  const legend = contributions.map(c =>
+    `<span><i style="background:var(${c.css})"></i>${escapeHtml(c.label)} ${c.value.toFixed(2)}</span>`
+  ).join("");
+  return `
+    <div class="rubric-wrap">
+      <div class="rubric-bar" aria-hidden="true">${segments}</div>
+      <div class="rubric-ticks" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="rubric-legend">${legend}</div>
+    </div>`;
+}
+
 function renderEvidence(evidence) {
-  return evidence.map(e => {
+  return evidence.map((e, i) => {
     const link = evidenceLink(e.id);
     const idHtml = link
       ? `<a class="ev-link" href="${link}" target="_blank" rel="noopener">${escapeHtml(e.id)}</a>`
       : `<span class="ev-id">${escapeHtml(e.id)}</span>`;
     const weightClass = e.weight === "primary" ? "weight-primary" : "";
+    const exhibitLetter = String.fromCharCode(65 + i);
     return `
       <div class="evidence-item">
+        <span class="exhibit-label">Exhibit ${exhibitLetter}</span>
         <span class="weight-badge ${weightClass}">${escapeHtml(e.weight)}</span>${idHtml}
         <div class="ev-text">${escapeHtml(e.excerpt_or_paraphrase)}</div>
       </div>`;
@@ -250,7 +379,7 @@ function renderNotificationSection(notif) {
   if (!notif) {
     return `
       <details>
-        <summary>View drafted notification</summary>
+        <summary>Drafted notification</summary>
         <div class="detail-body">
           <div class="muted-note">Drafted notification not available for this gap.</div>
         </div>
@@ -258,7 +387,7 @@ function renderNotificationSection(notif) {
   }
   return `
     <details>
-      <summary>View drafted notification</summary>
+      <summary>Drafted notification</summary>
       <div class="detail-body">
         <div class="block-label">Subject</div>
         <div class="ev-text">${escapeHtml(notif.subject)}</div>
@@ -269,52 +398,47 @@ function renderNotificationSection(notif) {
 }
 
 function renderGap(gap) {
-  const pct = Math.round(gap.confidence * 100);
+  const rankPadded = String(gap.rank).padStart(2, "0");
   return `
-    <div class="gap-card">
-      <div class="gap-head">
-        <div class="rank">#${gap.rank}</div>
-        <div class="gap-body">
-          <p class="need">${escapeHtml(gap.need)}</p>
-          <div class="meta-row">
-            <span class="verdict-tag verdict-${escapeHtml(gap.verdict)}">${escapeHtml(gap.verdict)}</span>
-            <div class="confidence-wrap">
-              <div class="confidence-track"><div class="confidence-fill" style="width:${pct}%"></div></div>
-              <span class="confidence-num">${gap.confidence.toFixed(2)}</span>
-            </div>
-          </div>
-          <div class="meta-row">
-            ${renderTeamBadge(gap._routing)}
-          </div>
-          <details>
-            <summary>Show evidence trace &amp; confidence math</summary>
-            <div class="detail-body">
-              <div class="block-label">Verdict basis</div>
-              <div class="ev-text">${escapeHtml(gap.verdict_justification)}</div>
-
-              <div class="block-label">Confidence math</div>
-              <div class="math-block">${escapeHtml(gap.confidence_justification)}</div>
-
-              <div class="block-label">Evidence</div>
-              ${renderEvidence(gap.evidence)}
-
-              <div class="block-label">Roadmap cross-references</div>
-              ${renderRefs(gap.roadmap_refs)}
-
-              <div class="block-label">Alternative explanations considered and rejected</div>
-              <div class="alt-explanation">${escapeHtml(gap.rejected_alternative_explanations)}</div>
-            </div>
-          </details>
-          ${renderNotificationSection(gap._notification)}
-        </div>
+    <article class="gap-card" id="gap-${gap.rank}">
+      <div class="docket-row">
+        <span class="rank">N&deg; ${rankPadded}</span>
+        <span class="verdict-tag verdict-${escapeHtml(gap.verdict)}"><span class="tag-dot"></span>${escapeHtml(gap.verdict)}</span>
+        ${renderTeamBadge(gap._routing)}
       </div>
-    </div>`;
+      <div class="confidence-row">
+        <div class="confidence-figure">${gap.confidence.toFixed(2)}<span class="cf-max">/1.00</span></div>
+        ${renderRubricBar(gap.confidence_justification)}
+      </div>
+      <h3 class="need">${escapeHtml(gap.need)}</h3>
+      <details>
+        <summary>Evidence &amp; rubric math — ${gap.evidence.length} exhibits</summary>
+        <div class="detail-body">
+          <div class="block-label">Verdict basis</div>
+          <div class="ev-text">${escapeHtml(gap.verdict_justification)}</div>
+
+          <div class="block-label">Confidence math (full working)</div>
+          <div class="math-block">${escapeHtml(gap.confidence_justification)}</div>
+
+          <div class="block-label">Evidence</div>
+          ${renderEvidence(gap.evidence)}
+
+          <div class="block-label">Roadmap cross-references</div>
+          ${renderRefs(gap.roadmap_refs)}
+
+          <div class="block-label">Alternative explanations considered and rejected</div>
+          <div class="alt-explanation">${escapeHtml(gap.rejected_alternative_explanations)}</div>
+        </div>
+      </details>
+      ${renderNotificationSection(gap._notification)}
+    </article>`;
 }
 
 function renderRejected(rec) {
   const ids = (rec.supporting_evidence_ids || []).join(", ");
   return `
     <div class="rejected-card">
+      <span class="ruled-out-tag">Ruled out</span>
       <h3>${escapeHtml(rec.need)}</h3>
       <div class="rejected-reason">${escapeHtml(rec.reason)}</div>
       ${ids ? `<div class="rejected-ids">evidence: ${escapeHtml(ids)}</div>` : ""}
