@@ -210,16 +210,16 @@ def main():
     if not rank_changes and not threshold_crossings:
         lines.append(
             "**Stable.** Across all "
-            f"{len(perturbations) - 1} perturbations, the top-3 ranking order of the shipped "
-            "gaps never changes, and no candidate crosses the 0.5 ship/no-ship threshold in "
-            "either direction relative to baseline. The confidence numbers in gaps.json are not "
+            f"{len(perturbations) - 1} perturbations, the ranking order of the {len(shipped_ids)} "
+            "shipped gaps never changes, and no candidate crosses the 0.5 ship/no-ship threshold "
+            "in either direction relative to baseline. The confidence numbers in gaps.json are not "
             "an artifact of the specific weight choice."
         )
     else:
         lines.append(
-            f"**Not fully stable.** {len(rank_changes)} perturbation(s) changed the top-3 rank "
-            f"order and {len(threshold_crossings)} threshold-crossing event(s) were found. See "
-            "detail below."
+            f"**Not fully stable.** {len(rank_changes)} perturbation(s) changed the "
+            f"{len(shipped_ids)}-gap rank order and {len(threshold_crossings)} threshold-crossing "
+            "event(s) were found. See detail below."
         )
     lines.append("")
 

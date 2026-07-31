@@ -1,45 +1,41 @@
 {
   "gap_rank": 3,
   "team": "Trust & Safety",
-  "cc_teams": [
-    "Web Platform"
-  ],
+  "cc_teams": [],
   "to_address": "trust-safety@bluesky-social-app.internal",
-  "cc_addresses": [
-    "web-platform@bluesky-social-app.internal"
-  ],
-  "subject": "[Gap Analysis] Follower count / block-list desync -- 15 user reports, no roadmap milestone",
-  "confidence": 0.65,
+  "cc_addresses": [],
+  "subject": "[Gap Analysis] No private-account / remove-follower controls against bot spam -- 67 user reports, no roadmap milestone",
+  "confidence": 0.85,
   "verdict": "UNDER-PRIORITIZED",
-  "need": "Follower counts and follower lists don't reflect reality: blocked accounts still count as followers and still appear in follower lists, and displayed follower counts are simply inconsistent/wrong on refresh.",
+  "need": "Users have no way to stop bot/spam accounts from following them: there is no private/locked account option, and no way to remove an unwanted follower without blocking them.",
   "evidence": [
     {
-      "id": "review-play-07735",
-      "excerpt_or_paraphrase": "It's ok if u want smthg better than toxic X..downsides to this app are: u can't set profile private, blocks are public (meaning they're still part of follower count)..but can't interact. Needs edit button..or you will have to delete & redo post, which is very annoying. Needs an a",
+      "id": "review-play-02336",
+      "excerpt_or_paraphrase": "Has room for improvement. For example: needs ability to make locked/private accounts. Needs a bookmark feature. Maybe the ability to show/hide our likes tab on our profile. Sometimes I like to share art I've found with friends this way. Moderation could do with some tweaking as I",
       "weight": "primary"
     },
     {
-      "id": "review-play-05862",
-      "excerpt_or_paraphrase": "Need to have the ability to make accounts private, remove blocked followers and there are too many spam accounts wanting to follow.",
+      "id": "review-play-04510",
+      "excerpt_or_paraphrase": "Needs a way to remove individual unwanted followers. There are enough users that I'm now starting to get fake account follows and I want to remove them.",
       "weight": "corroborating"
     },
     {
-      "id": "github-issue-853",
-      "excerpt_or_paraphrase": "Blocked people are still able to follow and show up in the followers also follower count  I tried to fix it:\r \r _appendAll(res: GetFollowers.Response) {\r   this.loadMoreCursor = res.data.cursor;\r   this.hasMore = !!this.loadMoreCursor;\r   const filteredFollowers = res.data.follow",
+      "id": "github-issue-1155",
+      "excerpt_or_paraphrase": "Private/Locked accounts  The option to make your account \"private\" as in only your followers can see your posts.",
       "weight": "corroborating"
     }
   ],
   "roadmap_refs": [
     {
-      "id": "github-issue-853",
-      "relation": "exact match: blocked accounts still counted/shown as followers"
+      "id": "github-issue-1155",
+      "relation": "exact match: request for private/locked accounts"
     },
     {
-      "id": "github-issue-7370",
-      "relation": "exact match: follower count displays incorrect/inconsistent number"
+      "id": "github-issue-1160",
+      "relation": "exact match: request for ability to remove a follower without blocking"
     }
   ],
   "suggested_next_step": "Consider adding this to the next milestone planning pass; it's already been filed and/or discussed but has gone unscheduled.",
-  "routing_reasoning": "No informative GitHub label found on referenced issues (github-issue-853: labels=['bug', 'x:on-the-roadmap']; github-issue-7370: labels=['bug']) -- fell back to weighted keyword matching (need-statement matches count 2x, evidence-excerpt matches count 1x, since evidence excerpts are raw review text that often bundles unrelated complaints in the same snippet). Matched terms for Trust & Safety: ['block', 'bot', 'spam']. Full score breakdown across all teams: Trust & Safety=5, Web Platform=4, API & Infrastructure=3. NOTE -- near-tie: Web Platform scored within 1 point(s) of the winning team and is also a defensible primary owner for this gap; treat this as cross-cutting rather than a confident single-team call.",
-  "body_text": "To: trust-safety@bluesky-social-app.internal (simulated demo address)\nCc: web-platform@bluesky-social-app.internal (near-tie routing, see below)\nSubject: [Gap Analysis] Follower count / block-list desync -- 15 user reports, no roadmap milestone\n\nHi Trust & Safety team,\n\nFollower counts and follower lists don't reflect reality: blocked accounts still count as followers and still appear in follower lists, and displayed follower counts are simply inconsistent/wrong on refresh.\n\nConfidence: 0.65 (driven mainly by corroboration)\nVerdict: UNDER-PRIORITIZED\n\nEvidence:\n- [primary] It's ok if u want smthg better than toxic X..downsides to this app are: u can't set profile private, blocks are public (meaning they're still part of follower count)..but can't int -- review-play-07735\n- [corroborating] Need to have the ability to make accounts private, remove blocked followers and there are too many spam accounts wanting to follow. -- review-play-05862\n- [corroborating] Blocked people are still able to follow and show up in the followers also follower count  I tried to fix it:\r \r _appendAll(res: GetFollowers.Response) {\r   this.loadMoreCursor = re -- github-issue-853 (https://github.com/bluesky-social/social-app/issues/853)\n\nRelated roadmap issue(s):\n- github-issue-853 (https://github.com/bluesky-social/social-app/issues/853) -- exact match: blocked accounts still counted/shown as followers\n- github-issue-7370 (https://github.com/bluesky-social/social-app/issues/7370) -- exact match: follower count displays incorrect/inconsistent number\n\nSuggested next step: Consider adding this to the next milestone planning pass; it's already been filed and/or discussed but has gone unscheduled.\n\nWhy this was routed to Trust & Safety:\nNo informative GitHub label found on referenced issues (github-issue-853: labels=['bug', 'x:on-the-roadmap']; github-issue-7370: labels=['bug']) -- fell back to weighted keyword matching (need-statement matches count 2x, evidence-excerpt matches count 1x, since evidence excerpts are raw review text that often bundles unrelated complaints in the same snippet). Matched terms for Trust & Safety: ['block', 'bot', 'spam']. Full score breakdown across all teams: Trust & Safety=5, Web Platform=4, API & Infrastructure=3. NOTE -- near-tie: Web Platform scored within 1 point(s) of the winning team and is also a defensible primary owner for this gap; treat this as cross-cutting rather than a confident single-team call.\n\n--\nGenerated by The Silent Stakeholder gap-analysis pipeline. This is a draft for\nhuman review before sending -- see output/team_notifications/README.md for how\n(and whether) it actually gets sent."
+  "routing_reasoning": "No informative GitHub label found on referenced issues (github-issue-1155: labels=['feature-request', 'x:on-the-roadmap']; github-issue-1160: labels=['feature-request', 'x:discussing']) -- fell back to weighted keyword matching (need-statement matches count 2x, evidence-excerpt matches count 1x, since evidence excerpts are raw review text that often bundles unrelated complaints in the same snippet). Matched terms for Trust & Safety: ['block', 'bot', 'moderation', 'private account', 'spam', 'unwanted follower']. Full score breakdown across all teams: Trust & Safety=12.",
+  "body_text": "To: trust-safety@bluesky-social-app.internal (simulated demo address)\nSubject: [Gap Analysis] No private-account / remove-follower controls against bot spam -- 67 user reports, no roadmap milestone\n\nHi Trust & Safety team,\n\nUsers have no way to stop bot/spam accounts from following them: there is no private/locked account option, and no way to remove an unwanted follower without blocking them.\n\nConfidence: 0.85 (driven mainly by corroboration)\nVerdict: UNDER-PRIORITIZED\n\nEvidence:\n- [primary] Has room for improvement. For example: needs ability to make locked/private accounts. Needs a bookmark feature. Maybe the ability to show/hide our likes tab on our profile. Sometim -- review-play-02336\n- [corroborating] Needs a way to remove individual unwanted followers. There are enough users that I'm now starting to get fake account follows and I want to remove them. -- review-play-04510\n- [corroborating] Private/Locked accounts  The option to make your account \"private\" as in only your followers can see your posts. -- github-issue-1155 (https://github.com/bluesky-social/social-app/issues/1155)\n\nRelated roadmap issue(s):\n- github-issue-1155 (https://github.com/bluesky-social/social-app/issues/1155) -- exact match: request for private/locked accounts\n- github-issue-1160 (https://github.com/bluesky-social/social-app/issues/1160) -- exact match: request for ability to remove a follower without blocking\n\nSuggested next step: Consider adding this to the next milestone planning pass; it's already been filed and/or discussed but has gone unscheduled.\n\nWhy this was routed to Trust & Safety:\nNo informative GitHub label found on referenced issues (github-issue-1155: labels=['feature-request', 'x:on-the-roadmap']; github-issue-1160: labels=['feature-request', 'x:discussing']) -- fell back to weighted keyword matching (need-statement matches count 2x, evidence-excerpt matches count 1x, since evidence excerpts are raw review text that often bundles unrelated complaints in the same snippet). Matched terms for Trust & Safety: ['block', 'bot', 'moderation', 'private account', 'spam', 'unwanted follower']. Full score breakdown across all teams: Trust & Safety=12.\n\n--\nGenerated by The Silent Stakeholder gap-analysis pipeline. This is a draft for\nhuman review before sending -- see output/team_notifications/README.md for how\n(and whether) it actually gets sent."
 }

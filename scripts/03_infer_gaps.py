@@ -115,6 +115,32 @@ CANDIDATES = [
                             "different fixes, kept as a separate gap. Only 1 review overlaps between the "
                             "two evidence sets.",
     },
+    {
+        "id": "captcha-blocks-signup-login",
+        "need": "A broken CAPTCHA/verification step blocks account creation and login for a "
+                "significant share of users: it fails to render, times out with a gateway error, "
+                "or rejects a correctly-completed challenge with an 'invalid verification code' error.",
+        "review_filter": lambda r: any_has(r["text"], [
+            "captcha", "recaptcha", "not a robot", "i am a robot", "am i a robot",
+        ]),
+        "roadmap_refs": [
+            {"number": 6704, "relation": "exact match: sign-up captcha fails to display correctly on some "
+                                          "Android devices (foldables/tablets), preventing completion"},
+            {"number": 6936, "relation": "exact match: captcha fails to render during account creation on web"},
+        ],
+        "alt_explanation": "Could this just be users failing the challenge (user error) rather than a real "
+                            "bug? Ruled out: reports describe specific technical failure modes -- 'bad "
+                            "gateway, upstream timeout, upstream failure', the prompt rendering cut off on "
+                            "foldable/tablet displays, and 'invalid verification code' errors appearing "
+                            "immediately after a challenge is correctly completed, not after a wrong answer; "
+                            "one reviewer reports the team acknowledged this as 'a known problem' that "
+                            "'hasn't been fixed'. Could this double-count the shipped login-keyboard-"
+                            "dismissal gap? Ruled out by checking directly: zero review-id overlap between "
+                            "the two keyword clusters, and the failure modes are unrelated (keyboard focus "
+                            "vs. captcha rendering/validation). Device/platform diversity across the cluster "
+                            "(Android app, Chrome/Safari incognito web, Samsung Galaxy Fold, tablets) rules "
+                            "out single-device fragmentation as the explanation.",
+    },
 ]
 
 # Candidates considered and explicitly rejected via falsification, documented

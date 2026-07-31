@@ -9,6 +9,16 @@
   },
   {
     "gap_rank": 2,
+    "need": "A broken CAPTCHA/verification step blocks account creation and login for a significant share of users: it fails to render, times out with a gateway error, or rejects a correctly-completed challenge with an 'invalid verification code' error.",
+    "team": "Web Platform",
+    "cc_teams": [
+      "Android Client"
+    ],
+    "signal_used": "keyword",
+    "reasoning": "No informative GitHub label found on referenced issues (github-issue-6704: labels=['bug']; github-issue-6936: labels=['bug']) -- fell back to weighted keyword matching (need-statement matches count 2x, evidence-excerpt matches count 1x, since evidence excerpts are raw review text that often bundles unrelated complaints in the same snippet). Matched terms for Web Platform: ['browser', 'display', 'render', 'screen']. Full score breakdown across all teams: Web Platform=6, Android Client=5, Trust & Safety=2. NOTE -- near-tie: Android Client scored within 1 point(s) of the winning team and is also a defensible primary owner for this gap; treat this as cross-cutting rather than a confident single-team call."
+  },
+  {
+    "gap_rank": 3,
     "need": "Users have no way to stop bot/spam accounts from following them: there is no private/locked account option, and no way to remove an unwanted follower without blocking them.",
     "team": "Trust & Safety",
     "cc_teams": [],
@@ -16,7 +26,7 @@
     "reasoning": "No informative GitHub label found on referenced issues (github-issue-1155: labels=['feature-request', 'x:on-the-roadmap']; github-issue-1160: labels=['feature-request', 'x:discussing']) -- fell back to weighted keyword matching (need-statement matches count 2x, evidence-excerpt matches count 1x, since evidence excerpts are raw review text that often bundles unrelated complaints in the same snippet). Matched terms for Trust & Safety: ['block', 'bot', 'moderation', 'private account', 'spam', 'unwanted follower']. Full score breakdown across all teams: Trust & Safety=12."
   },
   {
-    "gap_rank": 3,
+    "gap_rank": 4,
     "need": "Follower counts and follower lists don't reflect reality: blocked accounts still count as followers and still appear in follower lists, and displayed follower counts are simply inconsistent/wrong on refresh.",
     "team": "Trust & Safety",
     "cc_teams": [

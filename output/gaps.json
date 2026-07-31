@@ -42,6 +42,47 @@
   },
   {
     "rank": 2,
+    "need": "A broken CAPTCHA/verification step blocks account creation and login for a significant share of users: it fails to render, times out with a gateway error, or rejects a correctly-completed challenge with an 'invalid verification code' error.",
+    "confidence": 0.95,
+    "confidence_justification": "corroboration=1.0 (n=87 distinct reviews / 15 cap) * 0.35 = 0.35; signal_count=0.87 (n=87 / 100 cap) * 0.25 = 0.2175; latency=1.0 (span=467d / 365 cap) * 0.20 = 0.2; roadmap_disconfirmation=0.8 * 0.20 = 0.16. Sum=0.9275 -> rounded to nearest 0.05 = 0.95. Disconfirmation basis: #6704: no milestone AND stale (611d since last update, threshold 180d); #6936: no milestone AND stale (603d since last update, threshold 180d).",
+    "verdict": "UNDER-PRIORITIZED",
+    "verdict_justification": "87 independent reviews (2023-12-24 to 2025-04-04) describe this need. #6704: no milestone AND stale (611d since last update, threshold 180d); #6936: no milestone AND stale (603d since last update, threshold 180d)",
+    "evidence": [
+      {
+        "id": "review-play-04131",
+        "excerpt_or_paraphrase": "Why did I give this app one star is because I did not even log into the app and see the feature of the cause of CAPTCHA verification even if you are woman that thing is not verifying you that is it and that is the truth you people have to remove that thing totally from your app t",
+        "weight": "primary"
+      },
+      {
+        "id": "review-play-04148",
+        "excerpt_or_paraphrase": "Really!!! Replace X? This app is a complete joke. Meanwhile I had fun playing with the Captcha, with the endless circle of retries with different Captchas, I guess you guys got that right. Do your self one favour, change your org to a captcha game company, it will do the public s",
+        "weight": "corroborating"
+      },
+      {
+        "id": "github-issue-6704",
+        "excerpt_or_paraphrase": "Sign-Up Captcha does not display correctly on some displays in a way that prevents use [Android]  ### Steps to Reproduce  1. Open bluesky app on the internal screen of Galaxy Fold 4 (potentially other foldables and tablets too, but I don't have any to test)\r 2. Attempt to create ",
+        "weight": "corroborating"
+      },
+      {
+        "id": "github-issue-6936",
+        "excerpt_or_paraphrase": "can't create a new account - captcha fails to render  ### Steps to Reproduce  1. visit https://bsky.app in empty browser (Safari, Chrome incognito)\r 2. choose new account, fill in email etc.\r 3. choose a new handle, click next\r \r \r <img width=\"720\" alt=\"image\" src=\"https://github",
+        "weight": "corroborating"
+      }
+    ],
+    "roadmap_refs": [
+      {
+        "id": "github-issue-6704",
+        "relation": "exact match: sign-up captcha fails to display correctly on some Android devices (foldables/tablets), preventing completion"
+      },
+      {
+        "id": "github-issue-6936",
+        "relation": "exact match: captcha fails to render during account creation on web"
+      }
+    ],
+    "rejected_alternative_explanations": "Could this just be users failing the challenge (user error) rather than a real bug? Ruled out: reports describe specific technical failure modes -- 'bad gateway, upstream timeout, upstream failure', the prompt rendering cut off on foldable/tablet displays, and 'invalid verification code' errors appearing immediately after a challenge is correctly completed, not after a wrong answer; one reviewer reports the team acknowledged this as 'a known problem' that 'hasn't been fixed'. Could this double-count the shipped login-keyboard-dismissal gap? Ruled out by checking directly: zero review-id overlap between the two keyword clusters, and the failure modes are unrelated (keyboard focus vs. captcha rendering/validation). Device/platform diversity across the cluster (Android app, Chrome/Safari incognito web, Samsung Galaxy Fold, tablets) rules out single-device fragmentation as the explanation."
+  },
+  {
+    "rank": 3,
     "need": "Users have no way to stop bot/spam accounts from following them: there is no private/locked account option, and no way to remove an unwanted follower without blocking them.",
     "confidence": 0.85,
     "confidence_justification": "corroboration=1.0 (n=67 distinct reviews / 15 cap) * 0.35 = 0.35; signal_count=0.67 (n=67 / 100 cap) * 0.25 = 0.1675; latency=1.0 (span=396d / 365 cap) * 0.20 = 0.2; roadmap_disconfirmation=0.65 * 0.20 = 0.13. Sum=0.8475 -> rounded to nearest 0.05 = 0.85. Disconfirmation basis: #1155: open 1082d (2y+) and never scheduled to a milestone, despite recent comment activity; #1160: open 1081d (2y+) and never scheduled to a milestone, despite recent comment activity.",
@@ -82,7 +123,7 @@
     "rejected_alternative_explanations": "Could this just be generic anti-spam sentiment rather than a specific, buildable feature ask? Ruled out: the review text converges on two concrete, named feature requests (account privacy toggle, follower removal) that already match filed, multi-hundred-comment GitHub issues -- this is not vague dissatisfaction, it is a request the team has already scoped."
   },
   {
-    "rank": 3,
+    "rank": 4,
     "need": "Follower counts and follower lists don't reflect reality: blocked accounts still count as followers and still appear in follower lists, and displayed follower counts are simply inconsistent/wrong on refresh.",
     "confidence": 0.65,
     "confidence_justification": "corroboration=1.0 (n=15 distinct reviews / 15 cap) * 0.35 = 0.35; signal_count=0.15 (n=15 / 100 cap) * 0.25 = 0.0375; latency=0.6219 (span=227d / 365 cap) * 0.20 = 0.1244; roadmap_disconfirmation=0.8 * 0.20 = 0.16. Sum=0.6719 -> rounded to nearest 0.05 = 0.65. Disconfirmation basis: #853: no milestone AND stale (604d since last update, threshold 180d); #7370: no milestone AND stale (187d since last update, threshold 180d).",

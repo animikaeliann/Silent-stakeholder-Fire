@@ -24,12 +24,17 @@ OUT_DIR = ROOT / "output" / "team_notifications"
 REPO_URL = "https://github.com/bluesky-social/social-app"
 
 # Short, human-written subject-line topics for the gaps currently in
-# gaps.json. A future gap not listed here falls back to a mechanical
-# truncation of its `need` text -- see topic_for().
+# gaps.json, keyed by a stable substring of the gap's `need` text -- NOT
+# by rank, since rank shifts whenever a gap is added/reordered (confirmed
+# the hard way: adding a 4th gap silently misassigned every topic below
+# when this was keyed by rank 1/2/3). A future gap whose need text
+# doesn't match any key here falls back to a mechanical truncation --
+# see topic_for().
 SHORT_TOPIC_OVERRIDES = {
-    1: "Login keyboard-dismissal bug blocks sign-in",
-    2: "No private-account / remove-follower controls against bot spam",
-    3: "Follower count / block-list desync",
+    "keyboard flashes open and immediately closes": "Login keyboard-dismissal bug blocks sign-in",
+    "broken CAPTCHA/verification step": "CAPTCHA fails to render, blocks sign-up and login",
+    "no private/locked account option": "No private-account / remove-follower controls against bot spam",
+    "Follower counts and follower lists don't reflect reality": "Follower count / block-list desync",
 }
 
 NEXT_STEP_BY_VERDICT = {
@@ -44,8 +49,9 @@ NEXT_STEP_BY_VERDICT = {
 
 
 def topic_for(gap):
-    if gap["rank"] in SHORT_TOPIC_OVERRIDES:
-        return SHORT_TOPIC_OVERRIDES[gap["rank"]]
+    for needle, topic in SHORT_TOPIC_OVERRIDES.items():
+        if needle in gap["need"]:
+            return topic
     words = gap["need"].split()
     return " ".join(words[:8]) + ("…" if len(words) > 8 else "")
 

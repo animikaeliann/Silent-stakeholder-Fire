@@ -1,6 +1,6 @@
 # The Silent Stakeholder — Gap Analysis: Bluesky
 
-**3 gaps shipped**, ranked strongest evidence first. **3 candidates investigated and rejected** via falsification (see log below) rather than silently dropped.
+**4 gaps shipped**, ranked strongest evidence first. **3 candidates investigated and rejected** via falsification (see log below) rather than silently dropped.
 
 Source: 8,359 Google Play reviews for Bluesky (2023-04-19 to 2025-04-20) cross-checked against the live `bluesky-social/social-app` GitHub issue tracker.
 
@@ -36,7 +36,35 @@ corroboration=1.0 (n=287 distinct reviews / 15 cap) * 0.35 = 0.35; signal_count=
 
 ---
 
-## #2 — Users have no way to stop bot/spam accounts from following them: there is no private/locked account option, and no way to remove an unwanted follower without blocking them.
+## #2 — A broken CAPTCHA/verification step blocks account creation and login for a significant share of users: it fails to render, times out with a gateway error, or rejects a correctly-completed challenge with an 'invalid verification code' error.
+
+**Verdict:** `UNDER-PRIORITIZED`  |  **Confidence:** `0.95`
+
+> 87 independent reviews (2023-12-24 to 2025-04-04) describe this need. #6704: no milestone AND stale (611d since last update, threshold 180d); #6936: no milestone AND stale (603d since last update, threshold 180d)
+
+**Confidence math:**
+
+```
+corroboration=1.0 (n=87 distinct reviews / 15 cap) * 0.35 = 0.35; signal_count=0.87 (n=87 / 100 cap) * 0.25 = 0.2175; latency=1.0 (span=467d / 365 cap) * 0.20 = 0.2; roadmap_disconfirmation=0.8 * 0.20 = 0.16. Sum=0.9275 -> rounded to nearest 0.05 = 0.95. Disconfirmation basis: #6704: no milestone AND stale (611d since last update, threshold 180d); #6936: no milestone AND stale (603d since last update, threshold 180d).
+```
+
+**Evidence:**
+
+- *[primary]* (`review-play-04131`): Why did I give this app one star is because I did not even log into the app and see the feature of the cause of CAPTCHA verification even if you are woman that thing is not verifying you that is it and that is the truth you people have to remove that thing totally from your app t
+- *[corroborating]* (`review-play-04148`): Really!!! Replace X? This app is a complete joke. Meanwhile I had fun playing with the Captcha, with the endless circle of retries with different Captchas, I guess you guys got that right. Do your self one favour, change your org to a captcha game company, it will do the public s
+- *[corroborating]* ([github-issue-6704](https://github.com/bluesky-social/social-app/issues/6704)): Sign-Up Captcha does not display correctly on some displays in a way that prevents use [Android]  ### Steps to Reproduce  1. Open bluesky app on the internal screen of Galaxy Fold 4 (potentially other foldables and tablets too, but I don't have any to test) 2. Attempt to create
+- *[corroborating]* ([github-issue-6936](https://github.com/bluesky-social/social-app/issues/6936)): can't create a new account - captcha fails to render  ### Steps to Reproduce  1. visit https://bsky.app in empty browser (Safari, Chrome incognito) 2. choose new account, fill in email etc. 3. choose a new handle, click next   <img width="720" alt="image" src="https://github
+
+**Roadmap cross-references:**
+
+- [github-issue-6704](https://github.com/bluesky-social/social-app/issues/6704) — exact match: sign-up captcha fails to display correctly on some Android devices (foldables/tablets), preventing completion
+- [github-issue-6936](https://github.com/bluesky-social/social-app/issues/6936) — exact match: captcha fails to render during account creation on web
+
+**Alternative explanations considered and rejected:** Could this just be users failing the challenge (user error) rather than a real bug? Ruled out: reports describe specific technical failure modes -- 'bad gateway, upstream timeout, upstream failure', the prompt rendering cut off on foldable/tablet displays, and 'invalid verification code' errors appearing immediately after a challenge is correctly completed, not after a wrong answer; one reviewer reports the team acknowledged this as 'a known problem' that 'hasn't been fixed'. Could this double-count the shipped login-keyboard-dismissal gap? Ruled out by checking directly: zero review-id overlap between the two keyword clusters, and the failure modes are unrelated (keyboard focus vs. captcha rendering/validation). Device/platform diversity across the cluster (Android app, Chrome/Safari incognito web, Samsung Galaxy Fold, tablets) rules out single-device fragmentation as the explanation.
+
+---
+
+## #3 — Users have no way to stop bot/spam accounts from following them: there is no private/locked account option, and no way to remove an unwanted follower without blocking them.
 
 **Verdict:** `UNDER-PRIORITIZED`  |  **Confidence:** `0.85`
 
@@ -64,7 +92,7 @@ corroboration=1.0 (n=67 distinct reviews / 15 cap) * 0.35 = 0.35; signal_count=0
 
 ---
 
-## #3 — Follower counts and follower lists don't reflect reality: blocked accounts still count as followers and still appear in follower lists, and displayed follower counts are simply inconsistent/wrong on refresh.
+## #4 — Follower counts and follower lists don't reflect reality: blocked accounts still count as followers and still appear in follower lists, and displayed follower counts are simply inconsistent/wrong on refresh.
 
 **Verdict:** `UNDER-PRIORITIZED`  |  **Confidence:** `0.65`
 
