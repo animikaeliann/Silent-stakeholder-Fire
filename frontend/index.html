@@ -148,6 +148,16 @@
 
   .alt-explanation { font-size: 15px; color: var(--text-secondary); font-style: italic; margin-top: 4px; }
 
+  .team-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.02em;
+    padding: 5px 12px; border-radius: 999px; white-space: nowrap;
+    border: 1px solid var(--seq-450); color: var(--seq-450); background: transparent;
+  }
+  .team-badge.team-unavailable { border-color: var(--gridline); color: var(--text-muted); }
+  .team-cc { font-size: 13px; color: var(--text-muted); }
+  .muted-note { color: var(--text-muted); font-style: italic; }
+
   .rejected-card {
     background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
     padding: 18px 22px; margin-bottom: 14px;
@@ -226,6 +236,38 @@ function renderRefs(refs) {
   }).join("");
 }
 
+function renderTeamBadge(routing) {
+  if (!routing) {
+    return `<span class="team-badge team-unavailable">team routing: not available</span>`;
+  }
+  const ccHtml = (routing.cc_teams && routing.cc_teams.length)
+    ? ` <span class="team-cc">(cc: ${routing.cc_teams.map(escapeHtml).join(", ")})</span>`
+    : "";
+  return `<span class="team-badge">&rarr; ${escapeHtml(routing.team)}</span>${ccHtml}`;
+}
+
+function renderNotificationSection(notif) {
+  if (!notif) {
+    return `
+      <details>
+        <summary>View drafted notification</summary>
+        <div class="detail-body">
+          <div class="muted-note">Drafted notification not available for this gap.</div>
+        </div>
+      </details>`;
+  }
+  return `
+    <details>
+      <summary>View drafted notification</summary>
+      <div class="detail-body">
+        <div class="block-label">Subject</div>
+        <div class="ev-text">${escapeHtml(notif.subject)}</div>
+        <div class="block-label">Draft</div>
+        <div class="math-block">${escapeHtml(notif.body_text)}</div>
+      </div>
+    </details>`;
+}
+
 function renderGap(gap) {
   const pct = Math.round(gap.confidence * 100);
   return `
@@ -240,6 +282,9 @@ function renderGap(gap) {
               <div class="confidence-track"><div class="confidence-fill" style="width:${pct}%"></div></div>
               <span class="confidence-num">${gap.confidence.toFixed(2)}</span>
             </div>
+          </div>
+          <div class="meta-row">
+            ${renderTeamBadge(gap._routing)}
           </div>
           <details>
             <summary>Show evidence trace &amp; confidence math</summary>
@@ -260,6 +305,7 @@ function renderGap(gap) {
               <div class="alt-explanation">${escapeHtml(gap.rejected_alternative_explanations)}</div>
             </div>
           </details>
+          ${renderNotificationSection(gap._notification)}
         </div>
       </div>
     </div>`;
@@ -296,6 +342,25 @@ async function main() {
 
   try {
     const gaps = await fetch(`${API_BASE}/gaps`).then(r => r.json());
+
+    let routingByRank = {};
+    try {
+      const routing = await fetch(`${API_BASE}/routing`).then(r => r.json());
+      routingByRank = Object.fromEntries(routing.map(r => [r.gap_rank, r]));
+    } catch (e) {
+      // /routing unavailable -- each card falls back to "not available" below
+    }
+
+    await Promise.all(gaps.map(async gap => {
+      gap._routing = routingByRank[gap.rank] || null;
+      try {
+        const resp = await fetch(`${API_BASE}/notifications/${gap.rank}`);
+        gap._notification = resp.ok ? await resp.json() : null;
+      } catch (e) {
+        gap._notification = null;
+      }
+    }));
+
     document.getElementById("gaps-list").innerHTML = gaps.map(renderGap).join("");
   } catch (e) {
     document.getElementById("gaps-list").innerHTML = `<div class="error-banner">Failed to load /gaps: ${escapeHtml(e.message)}</div>`;
