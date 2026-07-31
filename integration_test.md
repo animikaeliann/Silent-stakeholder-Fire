@@ -34,8 +34,14 @@ payloads above (not just the schema on paper):
 - Verdict values seen in the data (`UNDER-PRIORITIZED`) have a matching CSS
   class (`.verdict-UNDER-PRIORITIZED`); `IGNORED` and `MISUNDERSTOOD` classes
   are also defined and would render correctly if a future run produces them.
-- `API_BASE` in the frontend (`http://localhost:8000`) matches the port the
-  backend is started on in this doc and in the README.
+- `API_BASE` in the frontend (`http://127.0.0.1:8000`) matches the port the
+  backend is started on in this doc and in the README. Deliberately `127.0.0.1`,
+  not `localhost`: on at least one dev machine `localhost` resolved to `::1`
+  first, which collided with an unrelated service already bound to `[::]:8000`
+  (in this case Docker Desktop's backend) and returned its `{"message":
+  "Unauthorized"}` instead of ever reaching our app. `curl http://127.0.0.1:8000/...`
+  always reaches this API regardless of what else is squatting on the IPv6 side
+  of the port.
 
 ## 3. Static checks on the frontend itself
 

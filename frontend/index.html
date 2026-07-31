@@ -184,7 +184,8 @@
 </section>
 
 <script>
-const API_BASE = "http://localhost:8000";
+const API_BASE = "http://127.0.0.1:8000"; // not "localhost": on this box it resolves to ::1 first,
+// which collides with an unrelated service already bound to [::]:8000
 const REPO_URL = "https://github.com/bluesky-social/social-app";
 
 function escapeHtml(s) {
