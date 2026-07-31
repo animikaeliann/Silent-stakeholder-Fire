@@ -1,5 +1,5 @@
 To: trust-safety@bluesky-social-app.internal (simulated demo address)
-Subject: [Gap Analysis] No private-account / remove-follower controls against bot spam -- 67 user reports, roadmap status unclear
+Subject: [Gap Analysis] No private-account / remove-follower controls against bot spam -- 67 user reports, no roadmap milestone
 
 Hi Trust Safety team,
 

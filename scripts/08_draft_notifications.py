@@ -56,10 +56,13 @@ def n_reviews_from_justification(justification):
 
 
 def milestone_phrase(justification):
-    if "no milestone" in justification.lower():
-        return "no roadmap milestone"
-    if "closed as not_planned" in justification.lower():
+    lower = justification.lower()
+    if "closed as not_planned" in lower:
         return "explicitly deprioritized"
+    if "never scheduled to a milestone" in lower or "no milestone" in lower:
+        return "no roadmap milestone"
+    if "unlabeled" in lower:
+        return "unlabeled on the tracker"
     return "roadmap status unclear"
 
 
