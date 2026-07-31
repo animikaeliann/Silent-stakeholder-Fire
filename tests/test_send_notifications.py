@@ -97,7 +97,7 @@ def test_real_send_only_ever_goes_to_override_address(send_module, monkeypatch):
     for msg in FakeSMTP.sent:
         assert msg["To"] == "override@example.com"
         assert msg["Subject"].startswith("[DEMO -- would route to:")
-        # never a team address, e.g. "mobile-client@bluesky-social-app.internal"
+        # never a team address, e.g. "android-client@bluesky-social-app.internal"
         assert "bluesky-social-app.internal" not in msg["To"]
 
 

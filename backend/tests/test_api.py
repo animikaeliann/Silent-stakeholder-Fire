@@ -16,7 +16,8 @@ GAP_KEYS = {
     "verdict_justification", "evidence", "roadmap_refs",
     "rejected_alternative_explanations",
 }
-TEAMS = {"WEB_FRONTEND", "BACKEND_API", "MOBILE_CLIENT", "TRUST_SAFETY", "INFRA_PLATFORM", "UNCLEAR"}
+TEAMS = {"Web Platform", "API & Infrastructure", "Android Client", "Trust & Safety",
+         "Core Infrastructure", "Unassigned / Needs Triage"}
 
 
 def test_health():

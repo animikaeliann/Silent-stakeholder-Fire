@@ -47,7 +47,7 @@ def test_every_gap_produces_a_txt_and_json_draft(draft_module):
     gaps = json.loads(GAPS_PATH.read_text())
     routing = {r["gap_rank"]: r for r in json.loads(ROUTING_PATH.read_text())}
     for gap in gaps:
-        team_slug = routing[gap["rank"]]["team"].lower()
+        team_slug = draft_module.slugify(routing[gap["rank"]]["team"])
         txt_path = NOTIF_DIR / f"gap_{gap['rank']}_{team_slug}.txt"
         json_path = NOTIF_DIR / f"gap_{gap['rank']}_{team_slug}.json"
         assert txt_path.exists() and txt_path.stat().st_size > 0
@@ -62,13 +62,13 @@ def test_txt_drafts_have_all_required_sections():
             assert section in text, f"{txt_path} missing section {section!r}"
 
 
-def test_txt_draft_addressed_to_a_valid_team():
+def test_txt_draft_addressed_to_a_valid_team(draft_module):
     routing_module = _load_module("07_route_to_team.py")
-    valid_slugs = {t.lower() for t in routing_module.TEAMS}
+    valid_slugs = {draft_module.slugify(t, "-") for t in routing_module.TEAMS}
     for txt_path in NOTIF_DIR.glob("*.txt"):
         first_line = txt_path.read_text().splitlines()[0]
         assert first_line.startswith("To: ")
-        team_part = first_line.split("@")[0].replace("To: ", "").replace("-", "_")
+        team_part = first_line.split("@")[0].replace("To: ", "")
         assert team_part in valid_slugs
 
 

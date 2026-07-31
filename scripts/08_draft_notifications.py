@@ -90,6 +90,13 @@ def evidence_url(evidence_id):
     return None
 
 
+def slugify(text, sep="_"):
+    """Lowercase, alnum-only slug with `sep` as the word separator. Needed
+    because team names can contain spaces and '&' (e.g. "Trust & Safety"),
+    which aren't safe to use verbatim in filenames or email addresses."""
+    return re.sub(r"[^a-z0-9]+", sep, text.lower()).strip(sep)
+
+
 def build_draft(gap, routing_rec):
     n = n_reviews_from_justification(gap["confidence_justification"])
     subject = (
@@ -116,17 +123,17 @@ def build_draft(gap, routing_rec):
     cc_teams = routing_rec.get("cc_teams", [])
 
     body_lines = [
-        f"To: {team.lower().replace('_', '-')}@bluesky-social-app.internal (simulated demo address)",
+        f"To: {slugify(team, '-')}@bluesky-social-app.internal (simulated demo address)",
     ]
     if cc_teams:
         body_lines.append(
-            f"Cc: {', '.join(t.lower().replace('_', '-') for t in cc_teams)}"
+            f"Cc: {', '.join(slugify(t, '-') for t in cc_teams)}"
             f"@bluesky-social-app.internal (near-tie routing, see below)"
         )
     body_lines += [
         f"Subject: {subject}",
         "",
-        f"Hi {team.replace('_', ' ').title()} team,",
+        f"Hi {team} team,",
         "",
         gap["need"],
         "",
@@ -155,8 +162,8 @@ def build_draft(gap, routing_rec):
         "gap_rank": gap["rank"],
         "team": team,
         "cc_teams": cc_teams,
-        "to_address": f"{team.lower().replace('_', '-')}@bluesky-social-app.internal",
-        "cc_addresses": [f"{t.lower().replace('_', '-')}@bluesky-social-app.internal" for t in cc_teams],
+        "to_address": f"{slugify(team, '-')}@bluesky-social-app.internal",
+        "cc_addresses": [f"{slugify(t, '-')}@bluesky-social-app.internal" for t in cc_teams],
         "subject": subject,
         "confidence": gap["confidence"],
         "verdict": gap["verdict"],
@@ -176,11 +183,18 @@ def main():
     routing = {r["gap_rank"]: r for r in routing_records}
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
+    # Clean up stale drafts before regenerating: if a gap's routed team name
+    # changes between runs, the old gap_{rank}_{old_slug}.{txt,json} files
+    # would otherwise stick around alongside the new ones (README.md is not
+    # touched -- only gap_*.txt/.json).
+    for stale in list(OUT_DIR.glob("gap_*.txt")) + list(OUT_DIR.glob("gap_*.json")):
+        stale.unlink()
+
     written = []
     for gap in gaps:
         routing_rec = routing[gap["rank"]]
         text, structured = build_draft(gap, routing_rec)
-        team_slug = routing_rec["team"].lower()
+        team_slug = slugify(routing_rec["team"])
         txt_path = OUT_DIR / f"gap_{gap['rank']}_{team_slug}.txt"
         json_path = OUT_DIR / f"gap_{gap['rank']}_{team_slug}.json"
         txt_path.write_text(text)

@@ -35,47 +35,48 @@ GAPS_PATH = ROOT / "output" / "gaps.json"
 ROADMAP_PATH = ROOT / "data" / "normalized" / "roadmap.jsonl"
 OUT_PATH = ROOT / "output" / "team_routing.json"
 
-TEAMS = ["WEB_FRONTEND", "BACKEND_API", "MOBILE_CLIENT", "TRUST_SAFETY", "INFRA_PLATFORM", "UNCLEAR"]
+TEAMS = ["Web Platform", "API & Infrastructure", "Android Client", "Trust & Safety",
+         "Core Infrastructure", "Unassigned / Needs Triage"]
 
 # (a) Label -> team. Populated defensively for labels that COULD appear on a
 # roadmap with a richer taxonomy than this dataset happens to have; see
 # module docstring for what's actually present here.
 LABEL_TEAM_MAP = {
-    "platform:android": "MOBILE_CLIENT",
-    "platform:ios": "MOBILE_CLIENT",
-    "area:mobile": "MOBILE_CLIENT",
-    "area:moderation": "TRUST_SAFETY",
-    "area:trust-safety": "TRUST_SAFETY",
-    "area:web": "WEB_FRONTEND",
-    "area:frontend": "WEB_FRONTEND",
-    "area:api": "BACKEND_API",
-    "area:backend": "BACKEND_API",
-    "area:infra": "INFRA_PLATFORM",
-    "area:platform": "INFRA_PLATFORM",
+    "platform:android": "Android Client",
+    "platform:ios": "Android Client",
+    "area:mobile": "Android Client",
+    "area:moderation": "Trust & Safety",
+    "area:trust-safety": "Trust & Safety",
+    "area:web": "Web Platform",
+    "area:frontend": "Web Platform",
+    "area:api": "API & Infrastructure",
+    "area:backend": "API & Infrastructure",
+    "area:infra": "Core Infrastructure",
+    "area:platform": "Core Infrastructure",
 }
 
 # (b) Team -> keywords to match (case-insensitive substring) against the
 # gap's need text + evidence excerpts. Order matters only for tie display;
 # scoring counts every match per team independently.
 KEYWORD_TEAM_MAP = {
-    "MOBILE_CLIENT": [
+    "Android Client": [
         "keyboard", "android", "samsung", "pixel", "ios", "app crash", "app crashes",
         "sign in", "sign-in", "login", "log in", "on-screen keyboard", "mobile device",
         "phone", "tablet",
     ],
-    "TRUST_SAFETY": [
+    "Trust & Safety": [
         "bot", "spam", "moderation", "suspended", "suspend", "appeal", "private account",
         "block", "harassment", "abuse", "trust", "safety", "labeled", "report", "unwanted follower",
     ],
-    "BACKEND_API": [
+    "API & Infrastructure": [
         "notification", "api", "sync", "count is", "count incorrect", "data integrity",
         "server", "backend", "database", "webhook", "endpoint", "inconsistent",
     ],
-    "WEB_FRONTEND": [
+    "Web Platform": [
         "ui", "button", "screen", "layout", "css", "web app", "browser", "scroll", "display",
         "render", "web browser", "desktop",
     ],
-    "INFRA_PLATFORM": [
+    "Core Infrastructure": [
         "outage", "rate limit", "deploy", "infrastructure", "downtime", "latency", "uptime",
         "server error", "500 error", "timeout",
     ],
@@ -121,7 +122,7 @@ def keyword_signal(gap):
             scores[team] = score
             matched_terms[team] = sorted(set(need_hits) | set(evidence_hits))
     if not scores:
-        return "UNCLEAR", {}, matched_terms, []
+        return "Unassigned / Needs Triage", {}, matched_terms, []
 
     ordered = sorted(scores.items(), key=lambda x: -x[1])
     best_team, best_score = ordered[0]
@@ -142,11 +143,11 @@ def classify(gap, roadmap_by_id):
     label_summary = "; ".join(
         f"{ci['id']}: labels={ci['labels'] or '[]'}" for ci in checked_issues
     )
-    if kw_team == "UNCLEAR":
+    if kw_team == "Unassigned / Needs Triage":
         reasoning = (
             f"No informative GitHub label found on referenced issues ({label_summary}). "
-            "No keyword match against any team's vocabulary either -- routed to UNCLEAR as the "
-            "documented fallback rather than guessing."
+            "No keyword match against any team's vocabulary either -- routed to "
+            "Unassigned / Needs Triage as the documented fallback rather than guessing."
         )
     else:
         score_summary = ", ".join(f"{t}={s}" for t, s in sorted(scores.items(), key=lambda x: -x[1]))

@@ -10,7 +10,7 @@ contact list (real distribution-list addresses, confirmation that those teams
 want to receive this, whatever internal routing/approval process the org
 requires). This hackathon project intentionally does not attempt to obtain or
 guess that — the `to_address` fields in the `.json` drafts
-(`mobile-client@bluesky-social-app.internal`, etc.) are placeholder addresses
+(`android-client@bluesky-social-app.internal`, etc.) are placeholder addresses
 for a fictional internal domain, not real inboxes.
 
 ## Default behavior: dry run, zero configuration

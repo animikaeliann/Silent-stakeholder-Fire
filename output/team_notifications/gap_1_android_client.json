@@ -1,0 +1,41 @@
+{
+  "gap_rank": 1,
+  "team": "Android Client",
+  "cc_teams": [],
+  "to_address": "android-client@bluesky-social-app.internal",
+  "cc_addresses": [],
+  "subject": "[Gap Analysis] Login keyboard-dismissal bug blocks sign-in -- 287 user reports, no roadmap milestone",
+  "confidence": 0.95,
+  "verdict": "UNDER-PRIORITIZED",
+  "need": "Users can't sign in or join the waitlist because the on-screen keyboard flashes open and immediately closes on the username/password/email field, blocking account access entirely on some Android devices.",
+  "evidence": [
+    {
+      "id": "review-play-04353",
+      "excerpt_or_paraphrase": "I can't even log in on the app, I can use the app on my Apple device but not here. Seems like a lot of the problems have to do with Samsung devices on the Google Play Store. Every time I click to enter my email or any information it shuts down right away. ***UPDATE*** It's a keyb",
+      "weight": "primary"
+    },
+    {
+      "id": "review-play-04921",
+      "excerpt_or_paraphrase": "It would be nice if it was possible to actually sign into the app on my phone. When trying to do so, the keyboard flashes and immediately disappears. This has been ongoing now for a month. I was signed out and have never been able to get back in. It's a useless app until then, wh",
+      "weight": "corroborating"
+    },
+    {
+      "id": "github-issue-6264",
+      "excerpt_or_paraphrase": "Unable to login on Android; Samsung S22.  ### Steps to Reproduce  1. Go to login screen.\r 2. Select login field.\r 3. The screen jumps as keyboard pulls up.\r 4. The login field is deselected.\r 5. Password field jumps the same way.  ### Attachments  _No response_  ### What platform",
+      "weight": "corroborating"
+    }
+  ],
+  "roadmap_refs": [
+    {
+      "id": "github-issue-6264",
+      "relation": "exact match: same symptom (login field keyboard opens then closes/deselects on Android), same repro steps"
+    },
+    {
+      "id": "github-issue-2371",
+      "relation": "adjacent-narrower: same class of Android keyboard/input bug, but scoped to composer handle-input, not the login screen"
+    }
+  ],
+  "suggested_next_step": "Consider adding this to the next milestone planning pass; it's already been filed and/or discussed but has gone unscheduled.",
+  "routing_reasoning": "No informative GitHub label found on referenced issues (github-issue-6264: labels=['bug']; github-issue-2371: labels=[]) -- fell back to weighted keyword matching (need-statement matches count 2x, evidence-excerpt matches count 1x, since evidence excerpts are raw review text that often bundles unrelated complaints in the same snippet). Matched terms for Android Client: ['android', 'keyboard', 'log in', 'login', 'on-screen keyboard', 'phone', 'samsung', 'sign in']. Full score breakdown across all teams: Android Client=15, Web Platform=3, Trust & Safety=2.",
+  "body_text": "To: android-client@bluesky-social-app.internal (simulated demo address)\nSubject: [Gap Analysis] Login keyboard-dismissal bug blocks sign-in -- 287 user reports, no roadmap milestone\n\nHi Android Client team,\n\nUsers can't sign in or join the waitlist because the on-screen keyboard flashes open and immediately closes on the username/password/email field, blocking account access entirely on some Android devices.\n\nConfidence: 0.95 (driven mainly by corroboration)\nVerdict: UNDER-PRIORITIZED\n\nEvidence:\n- [primary] I can't even log in on the app, I can use the app on my Apple device but not here. Seems like a lot of the problems have to do with Samsung devices on the Google Play Store. Every -- review-play-04353\n- [corroborating] It would be nice if it was possible to actually sign into the app on my phone. When trying to do so, the keyboard flashes and immediately disappears. This has been ongoing now for -- review-play-04921\n- [corroborating] Unable to login on Android; Samsung S22.  ### Steps to Reproduce  1. Go to login screen.\r 2. Select login field.\r 3. The screen jumps as keyboard pulls up.\r 4. The login field is d -- github-issue-6264 (https://github.com/bluesky-social/social-app/issues/6264)\n\nRelated roadmap issue(s):\n- github-issue-6264 (https://github.com/bluesky-social/social-app/issues/6264) -- exact match: same symptom (login field keyboard opens then closes/deselects on Android), same repro steps\n- github-issue-2371 (https://github.com/bluesky-social/social-app/issues/2371) -- adjacent-narrower: same class of Android keyboard/input bug, but scoped to composer handle-input, not the login screen\n\nSuggested next step: Consider adding this to the next milestone planning pass; it's already been filed and/or discussed but has gone unscheduled.\n\nWhy this was routed to Android Client:\nNo informative GitHub label found on referenced issues (github-issue-6264: labels=['bug']; github-issue-2371: labels=[]) -- fell back to weighted keyword matching (need-statement matches count 2x, evidence-excerpt matches count 1x, since evidence excerpts are raw review text that often bundles unrelated complaints in the same snippet). Matched terms for Android Client: ['android', 'keyboard', 'log in', 'login', 'on-screen keyboard', 'phone', 'samsung', 'sign in']. Full score breakdown across all teams: Android Client=15, Web Platform=3, Trust & Safety=2.\n\n--\nGenerated by The Silent Stakeholder gap-analysis pipeline. This is a draft for\nhuman review before sending -- see output/team_notifications/README.md for how\n(and whether) it actually gets sent."
+}

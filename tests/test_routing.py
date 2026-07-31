@@ -59,7 +59,7 @@ def test_keyword_signal_never_silently_empty_on_unclear(routing_module):
         "evidence": [{"excerpt_or_paraphrase": "no useful signal here at all whatsoever"}],
     }
     team, scores, matched_terms, also_plausible = routing_module.keyword_signal(fabricated_gap)
-    assert team == "UNCLEAR"
+    assert team == "Unassigned / Needs Triage"
     assert also_plausible == []
 
 
@@ -73,7 +73,7 @@ def test_label_signal_takes_priority_when_present(routing_module):
         "github-issue-999999": {"metadata": {"labels": ["area:moderation"]}}
     }
     team, matched_label, checked_issues = routing_module.label_signal(fabricated_gap, fabricated_roadmap_by_id)
-    assert team == "TRUST_SAFETY"
+    assert team == "Trust & Safety"
     assert matched_label == "area:moderation"
 
 
