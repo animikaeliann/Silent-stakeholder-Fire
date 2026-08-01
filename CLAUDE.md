@@ -19,7 +19,7 @@ Use `python3`, not `python` — bare `python` does not exist on this machine (`c
 ```
 python3 -m pytest tests/ backend/tests/ -q
 ```
-Currently 91 passed (verified this run).
+Currently 104 passed (verified this run).
 
 **Regenerate `output/gaps.json` / `gaps.md` from scratch**:
 ```
