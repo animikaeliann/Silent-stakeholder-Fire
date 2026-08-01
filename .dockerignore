@@ -1,0 +1,30 @@
+.git
+.gitignore
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+venv
+.venv
+env
+*.egg-info
+
+# Pipeline authoring / dev-only -- not read by backend/app.py at runtime
+scripts/
+data/
+logs/
+tests/
+backend/tests/
+
+# Docs, not needed inside the image
+ARCHITECTURE.md
+CLAUDE.md
+LESSONS.md
+SPEC.md
+README.md
+integration_test.md
+skills/
+
+# Non-runtime output artifacts -- backend/app.py only reads gaps.json,
+# rejected_candidates.jsonl, team_routing.json, team_notifications/*.json
+output/*.md

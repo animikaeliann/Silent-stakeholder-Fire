@@ -13,12 +13,14 @@ from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 
 ROOT = Path(__file__).resolve().parent.parent
 GAPS_PATH = ROOT / "output" / "gaps.json"
 REJECTED_PATH = ROOT / "output" / "rejected_candidates.jsonl"
 ROUTING_PATH = ROOT / "output" / "team_routing.json"
 NOTIFICATIONS_DIR = ROOT / "output" / "team_notifications"
+FRONTEND_INDEX = ROOT / "frontend" / "index.html"
 
 
 def load_gaps():
@@ -64,6 +66,16 @@ GAPS = load_gaps()
 REJECTED = load_rejected()
 ROUTING = load_routing()
 NOTIFICATIONS = load_notifications()
+
+
+@app.get("/")
+def frontend_index():
+    """Serves frontend/index.html at the API's own origin -- lets Docker
+    (or any same-origin deployment) skip the file:// + CORS workflow
+    entirely. Additive: doesn't touch any existing API route, and the
+    file:// double-click workflow (frontend/index.html opened directly in
+    a browser) is untouched and still works via the CORS middleware above."""
+    return FileResponse(FRONTEND_INDEX)
 
 
 @app.get("/health")

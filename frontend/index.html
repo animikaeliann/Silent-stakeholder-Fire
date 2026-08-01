@@ -287,9 +287,13 @@
 </section>
 
 <script>
-const API_BASE = "http://127.0.0.1:8420"; // not port 8000: Docker Desktop's backend service is
-// bound to [::]:8000 (dual-stack), and silently swallows loopback traffic on that port whenever
-// nothing else holds the specific IPv4 address -- 8420 avoids the whole class of collision
+// file:// (double-click workflow): no same origin to talk to, so hit the absolute
+// dev-server URL directly, same as before. Not port 8000: Docker Desktop's backend
+// service is bound to [::]:8000 (dual-stack) and silently swallows loopback traffic
+// on that port whenever nothing else holds the specific IPv4 address -- 8420 avoids
+// the whole class of collision. Any other origin (e.g. served through Docker/nginx/
+// same-origin deployment) uses a relative path instead -- no CORS needed there.
+const API_BASE = window.location.protocol === "file:" ? "http://127.0.0.1:8420" : "";
 const REPO_URL = "https://github.com/bluesky-social/social-app";
 
 // The four rubric weights are fixed by SPEC.md's formula; the per-gap
