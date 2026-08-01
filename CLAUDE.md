@@ -6,14 +6,24 @@ A gap-analysis pipeline for Bluesky (`bluesky-social/social-app`): it cross-refe
 
 ## Commands (verified working on this machine, just now)
 
-**Backend** (FastAPI):
+**Docker** (recommended — verified end-to-end just now):
+```
+docker compose build
+docker compose up -d
+curl http://127.0.0.1:8420/health   # -> {"status":"ok","gaps_loaded":4,"rejected_loaded":3}
+curl http://127.0.0.1:8420/         # -> frontend HTML (same-origin, no CORS needed)
+docker compose down
+```
+Also verified through the running container: `/gaps` (4 gaps), `/rejected` (3), `/routing` (4), `/notifications/1`. Base image is `python:3.9-slim`, matched to this machine's actual local Python (`python3 --version` → 3.9.6), not guessed. Port 8420 is mapped host:container 1:1 in `docker-compose.yml` — same collision-avoidance reasoning as the bare-metal port below applies.
+
+**Backend, bare-metal fallback** (FastAPI):
 ```
 python3 -m uvicorn backend.app:app --reload --port 8420
 ```
 Then `curl http://127.0.0.1:8420/health` → `{"status":"ok","gaps_loaded":4,"rejected_loaded":3}`.
 Use `python3`, not `python` — bare `python` does not exist on this machine (`command not found`). Use `python3 -m uvicorn`, not a bare `uvicorn` binary — the console script isn't on `PATH` here.
 
-**Frontend**: no build step, just open `frontend/index.html` in a browser while the backend above is running. It talks to `http://127.0.0.1:8420` (hardcoded in `frontend/index.html`'s `API_BASE`).
+**Frontend**: no build step. Through Docker, it's served same-origin at `/` by `backend/app.py` (a `FileResponse` route) — open `http://localhost:8420`. Opened directly as `frontend/index.html` (`file://`, bare-metal fallback), it talks to `http://127.0.0.1:8420` instead — `API_BASE` in `frontend/index.html` switches on `window.location.protocol` to pick whichever is correct, so the same file works both ways.
 
 **Full test suite**:
 ```
