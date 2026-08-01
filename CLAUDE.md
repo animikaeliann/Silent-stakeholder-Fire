@@ -55,5 +55,6 @@ Caveat: `01_normalize_reviews.py` *appends* to `logs/filtered.jsonl` (`open(...,
 12. `12_dual_method_discovery.py` — dual-method candidate discovery: keyword-based vs. tuned-semantic-based, with formal agreement metrics (ARI/NMI).
 13. `13_semantic_falsification.py` — semantic-similarity upgrade to the falsification check (embedding-based resolution-language detection).
 14. `14_weight_calibration.py` — exploratory data-driven calibration of the confidence rubric's 4 hand-picked weights. Exploratory only, not applied to shipped gaps.
+15. `15_adversarial_verify.py` — independent try-to-refute pass against each shipped gap (tail-silence timing, broader roadmap rescan, evidence integrity/representativeness, corroboration-count integrity), run as a separate pass from the one that proposed each gap.
 
 Every script above 04 is additive/read-only analysis layered on top of the SPEC.md-locked core pipeline (01-04) — none of them are supposed to change `output/gaps.json`'s content, only add new report files alongside it.
