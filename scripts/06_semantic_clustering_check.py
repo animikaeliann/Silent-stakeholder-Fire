@@ -18,6 +18,21 @@ every normalized review, then:
      filters -- i.e. something keyword matching could plausibly have missed
      entirely.
 
+KMEANS_K below is tuned, not ad-hoc: scripts/10_tune_clustering.py ran a
+real hyperparameter sweep jointly optimizing silhouette score and
+bootstrap stability, subject to a hard eligibility floor requiring enough
+clusters to be useful for candidate discovery. HDBSCAN (which finds its
+own cluster count and explicitly labels outliers as noise -- in principle
+a better fit for "does a latent need exist here" than "chop the corpus
+into exactly k pieces") was tried FIRST as the natural upgrade and swept
+across two full parameter grids plus a cluster_selection_epsilon check --
+it never once found more than 4 clusters without collapsing into 90%+
+noise, a real empirical property of this corpus's embedding space, not a
+tuning gap (see output/clustering_tuning_report.md for the full sweep and
+reasoning). KMeans(k=15) won the head-to-head comparison on the same
+joint objective and is what's used here; k=15 replaces the original
+ad-hoc k=30.
+
 Usage: python scripts/06_semantic_clustering_check.py
 """
 import importlib.util
@@ -31,7 +46,11 @@ OUT_PATH = ROOT / "output" / "semantic_validation.md"
 MODEL_NAME = "all-MiniLM-L6-v2"
 
 SEMANTIC_SIM_THRESHOLD = 0.45   # cosine similarity to a gap's keyword-cluster centroid
-KMEANS_K = 30
+
+# Tuned by scripts/10_tune_clustering.py's head-to-head HDBSCAN-vs-KMeans sweep --
+# see output/clustering_tuning_report.md for the full comparison and why KMeans won.
+KMEANS_K = 15
+
 MIN_NOVEL_CLUSTER_SIZE = 30      # below this, not worth flagging as a candidate
 MAX_COVERAGE_TO_FLAG = 0.35      # if >35% of a cluster is already keyword-covered, not "novel"
 MAX_MEAN_RATING_TO_FLAG = 2.5    # gaps are expressed as complaints; a praise-dominated cluster isn't one
