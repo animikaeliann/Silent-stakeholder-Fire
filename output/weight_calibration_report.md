@@ -4,7 +4,7 @@
 
 ## Objective and inputs
 
-- 4 shipped candidates, 3 rejected candidates (the 3 reconstructed in output/rubric_sensitivity.md).
+- 5 shipped candidates, 3 rejected candidates (the 3 reconstructed in output/rubric_sensitivity.md).
 - Margin is worst-case (min shipped vs. max rejected), not a difference of averages -- a weighting that separates the average well but leaves the weakest shipped gap scoring below the strongest rejected candidate is not what "the rubric correctly separates accepted from rejected" should mean.
 
 ## Hand-picked weights (shipped)
@@ -17,6 +17,7 @@
 | Users have no way to stop bot/spam accounts from f… | shipped | 0.8475 |
 | Follower counts and follower lists don't reflect r… | shipped | 0.6719 |
 | A broken CAPTCHA/verification step blocks account … | shipped | 0.9275 |
+| When a user downloads or saves media (photos, vide… | shipped | 0.7000 |
 | App crashes every time a user tries to open/play a… | rejected | 0.6826 |
 | Users want the ability to turn on notifications fo… | rejected | 0.6925 |
 | Accounts get suspended/labeled with no explanation… | rejected | 0.9450 |
@@ -31,6 +32,7 @@
 | Users have no way to stop bot/spam accounts from f… | shipped | 1.0000 |
 | Follower counts and follower lists don't reflect r… | shipped | 1.0000 |
 | A broken CAPTCHA/verification step blocks account … | shipped | 1.0000 |
+| When a user downloads or saves media (photos, vide… | shipped | 1.0000 |
 | App crashes every time a user tries to open/play a… | rejected | 1.0000 |
 | Users want the ability to turn on notifications fo… | rejected | 1.0000 |
 | Accounts get suspended/labeled with no explanation… | rejected | 1.0000 |
@@ -43,7 +45,7 @@ Per-factor difference (optimized - hand-picked): `{'corroboration': 0.65, 'signa
 
 **Possibly** -- one or more factors shifted by 0.65 or more. Re-scoring below.
 
-## Re-scoring the 4 shipped gaps under the optimized weights (report only)
+## Re-scoring the 5 shipped gaps under the optimized weights (report only)
 
 | Gap | Hand-picked confidence (rounded) | Optimized-weight confidence (rounded) |
 |---|---|---|
@@ -51,11 +53,12 @@ Per-factor difference (optimized - hand-picked): `{'corroboration': 0.65, 'signa
 | Users have no way to stop bot/spam accounts from f… | 0.85 | 1.0 |
 | Follower counts and follower lists don't reflect r… | 0.65 | 1.0 |
 | A broken CAPTCHA/verification step blocks account … | 0.95 | 1.0 |
+| When a user downloads or saves media (photos, vide… | 0.7 | 1.0 |
 
 No shipped gap would drop below the 0.5 ship threshold under the optimized weights.
 
 ## Limitations (read before citing this anywhere)
 
-- **Small sample, high degrees of freedom.** 7 candidates, 3 free weight parameters -- this grid search can overfit to whichever factor happens to separate these particular 7 rather than validating a generally-better weighting.
+- **Small sample, high degrees of freedom.** 8 candidates, 3 free weight parameters -- this grid search can overfit to whichever factor happens to separate these particular 8 rather than validating a generally-better weighting.
 - **Circularity risk, named plainly:** the 3 rejected candidates were partly filtered using the ORIGINAL hand-picked rubric and confidence floor in the first place (the falsification pass this rubric was designed alongside). Checking whether a reweighting separates accepted-from-rejected is partly checking agreement with the process that produced the labels, not an independent ground truth. This is exploratory, not a validation study.
 - Margin-maximization has no term at all for interpretability or the qualitative meaning of each factor (what corroboration/signal_count/latency/roadmap_disconfirmation *represent*) -- it would happily zero out a factor if that improved separation on these 7 points, which would be a worse rubric even if this narrow objective liked it better.

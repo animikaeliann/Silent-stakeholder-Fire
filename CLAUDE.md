@@ -10,17 +10,17 @@ A gap-analysis pipeline for Bluesky (`bluesky-social/social-app`): it cross-refe
 ```
 docker compose build
 docker compose up -d
-curl http://127.0.0.1:8420/health   # -> {"status":"ok","gaps_loaded":4,"rejected_loaded":3}
+curl http://127.0.0.1:8420/health   # -> {"status":"ok","gaps_loaded":5,"rejected_loaded":3}
 curl http://127.0.0.1:8420/         # -> frontend HTML (same-origin, no CORS needed)
 docker compose down
 ```
-Also verified through the running container: `/gaps` (4 gaps), `/rejected` (3), `/routing` (4), `/notifications/1`. Base image is `python:3.9-slim`, matched to this machine's actual local Python (`python3 --version` → 3.9.6), not guessed. Port 8420 is mapped host:container 1:1 in `docker-compose.yml` — same collision-avoidance reasoning as the bare-metal port below applies.
+Also verified through the running container: `/gaps` (5 gaps), `/rejected` (3), `/routing` (5), `/notifications/1`. Base image is `python:3.9-slim`, matched to this machine's actual local Python (`python3 --version` → 3.9.6), not guessed. Port 8420 is mapped host:container 1:1 in `docker-compose.yml` — same collision-avoidance reasoning as the bare-metal port below applies.
 
 **Backend, bare-metal fallback** (FastAPI):
 ```
 python3 -m uvicorn backend.app:app --reload --port 8420
 ```
-Then `curl http://127.0.0.1:8420/health` → `{"status":"ok","gaps_loaded":4,"rejected_loaded":3}`.
+Then `curl http://127.0.0.1:8420/health` → `{"status":"ok","gaps_loaded":5,"rejected_loaded":3}`.
 Use `python3`, not `python` — bare `python` does not exist on this machine (`command not found`). Use `python3 -m uvicorn`, not a bare `uvicorn` binary — the console script isn't on `PATH` here.
 
 **Frontend**: no build step. Through Docker, it's served same-origin at `/` by `backend/app.py` (a `FileResponse` route) — open `http://localhost:8420`. Opened directly as `frontend/index.html` (`file://`, bare-metal fallback), it talks to `http://127.0.0.1:8420` instead — `API_BASE` in `frontend/index.html` switches on `window.location.protocol` to pick whichever is correct, so the same file works both ways.
@@ -47,7 +47,7 @@ Caveat: `01_normalize_reviews.py` *appends* to `logs/filtered.jsonl` (`open(...,
 
 ## Protected files
 
-`output/gaps.json` and `output/gaps.md` are the shipped demo baseline (currently 4 gaps: login-keyboard-dismissal, CAPTCHA-blocks-signup, follower-count-block-desync, no-private-account-remove-follower). **Do not modify their content, or the rejected-candidates evidence/scores, as a side effect of other work** — not by re-running the pipeline casually, not as pipeline drift, not as an incidental part of a tuning/analysis task. Any proposed change to what's shipped comes back to the user for explicit approval first. Read-only analysis passes (scripts 05, 06, 10-15) are fine; anything that would rewrite `output/gaps.json`'s content is not, without asking first.
+`output/gaps.json` and `output/gaps.md` are the shipped demo baseline (currently 5 gaps, ranked by confidence: #1 login-keyboard-dismissal (0.95), #2 captcha-blocks-signup-login (0.95), #3 no-private-account-remove-follower (0.85), #4 photo-download-save-location (0.70), #5 follower-count-block-desync (0.65)). Gap #4 was added most recently — it's a directly-stated, well-corroborated need (24 reviews) surfaced via the latent-mining pass's Detector 1 casting a broader net than the original keyword clustering; it is explicitly NOT a latent/second-order finding itself (see its `provenance_note` in `scripts/03_infer_gaps.py`, and `output/latent_candidates.md` for the actual, unshipped latent near-miss it should not be confused with). **Do not modify gaps.json/gaps.md's content, or the rejected-candidates evidence/scores, as a side effect of other work** — not by re-running the pipeline casually, not as pipeline drift, not as an incidental part of a tuning/analysis task. Any proposed change to what's shipped comes back to the user for explicit approval first. Read-only analysis passes (scripts 05, 06, 10-15) are fine; anything that would rewrite `output/gaps.json`'s content is not, without asking first.
 
 ## Pipeline stage inventory (`scripts/`)
 
@@ -66,5 +66,8 @@ Caveat: `01_normalize_reviews.py` *appends* to `logs/filtered.jsonl` (`open(...,
 13. `13_semantic_falsification.py` — semantic-similarity upgrade to the falsification check (embedding-based resolution-language detection).
 14. `14_weight_calibration.py` — exploratory data-driven calibration of the confidence rubric's 4 hand-picked weights. Exploratory only, not applied to shipped gaps.
 15. `15_adversarial_verify.py` — independent try-to-refute pass against each shipped gap (tail-silence timing, broader roadmap rescan, evidence integrity/representativeness, corroboration-count integrity), run as a separate pass from the one that proposed each gap.
+16. `16_latent_signal_mining.py` — second-order/latent-need signal detectors (workaround language, implicit comparison, silent-churn divergence, cross-cluster time-correlation). Its Detector 1 output incidentally surfaced shipped gap #4 (a directly-stated need, not itself a latent finding — see gap #4's own provenance note above).
+17. *(reserved)* — `scripts/17_sync_to_db.py`, a separate, paused DB-persistence-layer phase (schema at `db/schema.sql`); not yet written, numbered here so a future script doesn't collide with it.
+18. `18_latent_scoring.py` — scores the one candidate that survived Phase 2 of the latent-mining work through the unmodified rubric in `03_infer_gaps.py`. Report only, writes `output/latent_candidates_scored.json`; that candidate scored 0.45 (below the 0.5 ship threshold) and was never shipped.
 
 Every script above 04 is additive/read-only analysis layered on top of the SPEC.md-locked core pipeline (01-04) — none of them are supposed to change `output/gaps.json`'s content, only add new report files alongside it.

@@ -168,7 +168,7 @@ def main():
     lines.append("# Dual-method discovery agreement")
     lines.append("")
     lines.append(
-        f"Keyword-based discovery (the method that shipped all 4 gaps) and tuned semantic discovery "
+        f"Keyword-based discovery (the method that shipped all {len(infer.CANDIDATES)} gaps) and tuned semantic discovery "
         f"(`{method}({params})` from output/clustering_tuning_report.md) run independently against the "
         f"same {n}-review corpus, then compared -- this run uses semantic clustering as a co-equal "
         "primary method, not an after-the-fact validation pass on keyword's output."
@@ -179,7 +179,8 @@ def main():
     lines.append(f"- **Adjusted Rand Index: {ari:.4f}** (0 = no better than chance, 1 = identical partitions)")
     lines.append(f"- **Normalized Mutual Information: {nmi:.4f}**")
     lines.append(
-        "- Both are computed over a 5-way keyword partition (no-match + 4 shipped gaps) vs. the "
+        f"- Both are computed over a {len(infer.CANDIDATES) + 1}-way keyword partition (no-match + "
+        f"{len(infer.CANDIDATES)} shipped gaps) vs. the "
         f"{len(semantic_clusters)}-way semantic partition. A low ARI here is expected and not itself "
         "concerning: the two partitions differ enormously in granularity by design (keyword only "
         "labels ~4.4% of the corpus with an opinion at all; semantic partitions all of it into "

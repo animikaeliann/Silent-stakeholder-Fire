@@ -394,9 +394,9 @@ def main():
         if flagged:
             weakest.append(candidate["id"])
     lines.append(
-        "All 4 shipped gaps were run through all 4 adversarial checks plus the 2 cited independent "
-        "methods. No shipped gap was newly falsified by any check (no tail-silence flag, no evidence-"
-        "integrity failure, no corroboration-count drift on any gap)."
+        f"All {len(infer.CANDIDATES)} shipped gaps were run through all 4 adversarial checks plus the 2 "
+        "cited independent methods. No shipped gap was newly falsified by any check (no tail-silence "
+        "flag, no evidence-integrity failure, no corroboration-count drift on any gap)."
     )
     if weakest:
         lines.append(

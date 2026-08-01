@@ -27,6 +27,16 @@
   },
   {
     "gap_rank": 4,
+    "need": "When a user downloads or saves media (photos, videos, profile/share images) from Bluesky, it always saves to the phone's general camera roll/DCIM folder, mixing app-saved media in with the user's own camera photos, with no option to choose or set a dedicated save location.",
+    "team": "Android Client",
+    "cc_teams": [
+      "Web Platform"
+    ],
+    "signal_used": "keyword",
+    "reasoning": "No informative GitHub label found on referenced issues (github-issue-9868: labels=['feature-request']; github-issue-10981: labels=['bug']) -- fell back to weighted keyword matching (need-statement matches count 2x, evidence-excerpt matches count 1x, since evidence excerpts are raw review text that often bundles unrelated complaints in the same snippet). Matched terms for Android Client: ['android', 'phone']. Full score breakdown across all teams: Android Client=3, Web Platform=2. NOTE -- near-tie: Web Platform scored within 1 point(s) of the winning team and is also a defensible primary owner for this gap; treat this as cross-cutting rather than a confident single-team call."
+  },
+  {
+    "gap_rank": 5,
     "need": "Follower counts and follower lists don't reflect reality: blocked accounts still count as followers and still appear in follower lists, and displayed follower counts are simply inconsistent/wrong on refresh.",
     "team": "Trust & Safety",
     "cc_teams": [

@@ -4,7 +4,7 @@ Baseline weights: corroboration=0.35, signal_count=0.25, latency=0.20, roadmap_d
 
 ## Headline finding
 
-**Stable.** Across all 21 perturbations, the ranking order of the 4 shipped gaps never changes, and no candidate crosses the 0.5 ship/no-ship threshold in either direction relative to baseline. The confidence numbers in gaps.json are not an artifact of the specific weight choice.
+**Not fully stable.** 9 perturbation(s) changed the 5-gap rank order and 0 threshold-crossing event(s) were found. See detail below.
 
 ## Confidence range per candidate across all perturbations
 
@@ -14,15 +14,24 @@ Baseline weights: corroboration=0.35, signal_count=0.25, latency=0.20, roadmap_d
 | Users have no way to stop bot/spam accounts from following t… | yes | 67 | 0.85 | 0.8 | 0.9 |
 | Follower counts and follower lists don't reflect reality: bl… | yes | 15 | 0.65 | 0.6 | 0.75 |
 | A broken CAPTCHA/verification step blocks account creation a… | yes | 87 | 0.95 | 0.9 | 0.95 |
+| When a user downloads or saves media (photos, videos, profil… | yes | 24 | 0.7 | 0.65 | 0.75 |
 | App crashes every time a user tries to open/play a video (fu… | no | 32 | 0.7 | 0.6 | 0.75 |
 | Users want the ability to turn on notifications for individu… | no | 21 | 0.7 | 0.65 | 0.75 |
 | Accounts get suspended/labeled with no explanation or a slow… | no | 78 | 0.95 | 0.9 | 0.95 |
 
 ## Rank-order stability (shipped gaps only)
 
-Baseline order: login-keyboard-dismissal > captcha-blocks-signup-login > no-private-account-remove-follower > follower-count-block-desync
+Baseline order: login-keyboard-dismissal > captcha-blocks-signup-login > no-private-account-remove-follower > photo-download-save-location > follower-count-block-desync
 
-No perturbation changed this order.
+- **corroboration++0.05** flips order to: login-keyboard-dismissal > captcha-blocks-signup-login > no-private-account-remove-follower > follower-count-block-desync > photo-download-save-location
+- **signal_count-0.10** flips order to: login-keyboard-dismissal > captcha-blocks-signup-login > no-private-account-remove-follower > follower-count-block-desync > photo-download-save-location
+- **signal_count++0.05** flips order to: login-keyboard-dismissal > captcha-blocks-signup-login > no-private-account-remove-follower > follower-count-block-desync > photo-download-save-location
+- **latency-0.10** flips order to: login-keyboard-dismissal > captcha-blocks-signup-login > no-private-account-remove-follower > follower-count-block-desync > photo-download-save-location
+- **latency-0.05** flips order to: login-keyboard-dismissal > captcha-blocks-signup-login > no-private-account-remove-follower > follower-count-block-desync > photo-download-save-location
+- **roadmap_disconfirmation++0.05** flips order to: login-keyboard-dismissal > captcha-blocks-signup-login > no-private-account-remove-follower > follower-count-block-desync > photo-download-save-location
+- **roadmap_disconfirmation++0.10** flips order to: login-keyboard-dismissal > captcha-blocks-signup-login > no-private-account-remove-follower > follower-count-block-desync > photo-download-save-location
+- **random-1** flips order to: login-keyboard-dismissal > captcha-blocks-signup-login > no-private-account-remove-follower > follower-count-block-desync > photo-download-save-location
+- **random-3** flips order to: login-keyboard-dismissal > captcha-blocks-signup-login > no-private-account-remove-follower > follower-count-block-desync > photo-download-save-location
 
 ## Threshold-crossing events (0.5 ship/no-ship line)
 

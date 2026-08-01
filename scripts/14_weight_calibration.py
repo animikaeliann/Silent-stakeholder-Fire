@@ -221,12 +221,13 @@ def main():
     lines.append(f"Per-factor difference (optimized - hand-picked): `{weight_diff}`. "
                   f"Largest single-factor shift: {max_diff:.2f}.")
     lines.append("")
+    total_n = len(shipped_candidates) + len(rejected_candidates)
     if len(tied) > 50:
         lines.append(
             f"**Not meaningfully -- the optimum is massively underdetermined.** {len(tied)} grid points "
             "tie for the best margin, meaning huge regions of the weight simplex separate these "
-            "particular 7 candidates equally well. With only 7 data points, this is expected, not a "
-            "sign the hand-picked weights are wrong: any weighting that keeps corroboration and "
+            f"particular {total_n} candidates equally well. With only {total_n} data points, this is "
+            "expected, not a sign the hand-picked weights are wrong: any weighting that keeps corroboration and "
             "roadmap_disconfirmation reasonably weighted (both shipped and rejected candidates vary "
             "along those two axes) tends to separate this specific, small sample. A tie this wide is "
             "itself the headline finding -- it means this objective, on this sample size, cannot "
@@ -243,7 +244,7 @@ def main():
         )
     lines.append("")
 
-    lines.append("## Re-scoring the 4 shipped gaps under the optimized weights (report only)")
+    lines.append(f"## Re-scoring the {len(shipped_candidates)} shipped gaps under the optimized weights (report only)")
     lines.append("")
     lines.append("| Gap | Hand-picked confidence (rounded) | Optimized-weight confidence (rounded) |")
     lines.append("|---|---|---|")
@@ -268,9 +269,9 @@ def main():
     lines.append("## Limitations (read before citing this anywhere)")
     lines.append("")
     lines.append(
-        "- **Small sample, high degrees of freedom.** 7 candidates, 3 free weight parameters -- this "
-        "grid search can overfit to whichever factor happens to separate these particular 7 rather "
-        "than validating a generally-better weighting."
+        f"- **Small sample, high degrees of freedom.** {total_n} candidates, 3 free weight parameters -- "
+        f"this grid search can overfit to whichever factor happens to separate these particular {total_n} "
+        "rather than validating a generally-better weighting."
     )
     lines.append(
         "- **Circularity risk, named plainly:** the 3 rejected candidates were partly filtered using "

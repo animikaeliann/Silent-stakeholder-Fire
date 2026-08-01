@@ -12,6 +12,7 @@ Dataset's own max review timestamp: **2025-04-20**. Tail-silence = days between 
 | no-private-account-remove-follower | shipped | 13 |
 | follower-count-block-desync | shipped | 2 |
 | captcha-blocks-signup-login | shipped | 16 |
+| photo-download-save-location | shipped | 5 |
 | video-playback-crash | rejected | 54 |
 | per-account-post-notifications | rejected | 19 |
 | moderation-appeal-transparency | rejected | 0 |
@@ -88,7 +89,22 @@ video-playback-crash (known-resolved, rejected via falsification) shows the larg
 
 **Survived adversarial review: YES** (no material concerns raised by any of the 4 checks above).
 
+### When a user downloads or saves media (photos, videos, profile/share images) from…
+
+- Tail-silence: 5 days -- clear (<= 30), complaints continue up to near the dataset's end.
+- Broader roadmap rescan: 3 issue(s) outside the declared roadmap_refs share >= 3 keywords with this need's text (reported for a manual look -- generic tech vocabulary collides across unrelated issues, so this is noisy by construction, not a confirmed finding):
+  - `#1078` (7 shared keywords: always, bluesky, choose, media, option, profile, user's): "Channels: The ability to sort Posts & Reposts into categories (multipl…"
+  - `#1682` (7 shared keywords: bluesky, images, option, save, saved, user's, videos): "Preview vs Source - Image display **Is your feature request related to…"
+  - `#7020` (7 shared keywords: bluesky, dedicated, media, option, profile, share, user's): "Enhanced User Profile Section ### Describe the Feature ### Suggested S…"
+- Evidence diversity (SPEC.md §3 hard rule, re-checked): OK (>= 2 entries, >= 2 distinct source_types).
+- Evidence integrity: all review-sourced excerpts are still verbatim prefixes of the current corpus; all cited IDs exist.
+- Cluster mean star rating: 3.33; primary evidence `review-play-01149` rating: 3 (delta 0.33)
+- Corroboration count: shipped n=24, recomputed now n=24 -- match.
+
+**Survived adversarial review: YES, WITH CAVEATS** (1 concern(s) raised, none applied to shipped output):
+- **High-cluster-rating FLAG**: this complaint cluster averages 3.33 stars -- unusually positive for a cluster being cited as evidence of a problem.
+
 ## Summary
 
-All 4 shipped gaps were run through all 4 adversarial checks plus the 2 cited independent methods. No shipped gap was newly falsified by any check (no tail-silence flag, no evidence-integrity failure, no corroboration-count drift on any gap).
+All 5 shipped gaps were run through all 4 adversarial checks plus the 2 cited independent methods. No shipped gap was newly falsified by any check (no tail-silence flag, no evidence-integrity failure, no corroboration-count drift on any gap).
 The one recurring point of weakness is **no-private-account-remove-follower**, already surfaced from a different angle in earlier phases (low bootstrap stability and/or non-convergent semantic clustering) -- this adversarial pass doesn't newly discover that weakness, but it also finds nothing here that overturns it or resolves it. It remains the shipped gap most worth a second look, for the same documented reason (a two-bundled-asks cluster), not a new one.

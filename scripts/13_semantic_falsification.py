@@ -185,8 +185,8 @@ def main():
     lines.append(
         "Upgrades the falsification check from literal keyword search (\"fixed,\" \"resolved,\" "
         f"\"works now\") to semantic similarity against {len(RESOLUTION_EXEMPLARS)} varied resolution-"
-        f"language exemplars, threshold {SIMILARITY_THRESHOLD} (calibrated below). Run against all 4 "
-        "shipped gaps and all 3 rejected candidates."
+        f"language exemplars, threshold {SIMILARITY_THRESHOLD} (calibrated below). Run against all "
+        "shipped gaps and all rejected candidates."
     )
     lines.append("")
     lines.append("## Threshold calibration")

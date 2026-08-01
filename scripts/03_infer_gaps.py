@@ -141,6 +141,61 @@ CANDIDATES = [
                             "(Android app, Chrome/Safari incognito web, Samsung Galaxy Fold, tablets) rules "
                             "out single-device fragmentation as the explanation.",
     },
+    {
+        # Found via scripts/16_latent_signal_mining.py's Detector 1 (workaround language)
+        # incidental broader net -- NOT a latent/second-order finding itself (every review
+        # below states this directly; see PROVENANCE_NOTE and output/latent_candidates.md's
+        # own explicit disclaimer that this cluster fails the latent test decisively). The
+        # 24-review set below was manually re-clustered and verified directly against
+        # data/normalized/reviews.jsonl for this candidate's addition -- it is NOT copied
+        # from the mining pass's looser ~29-review approximate regex, which conflated this
+        # need with a distinct "can't select upload source folder" complaint (see
+        # alt_explanation) and included several unrelated bugs (a camera-roll permission
+        # bug, a save-crash bug, a duplicate-photo-save feature request).
+        "id": "photo-download-save-location",
+        "need": "When a user downloads or saves media (photos, videos, profile/share images) from "
+                "Bluesky, it always saves to the phone's general camera roll/DCIM folder, mixing "
+                "app-saved media in with the user's own camera photos, with no option to choose or "
+                "set a dedicated save location.",
+        "review_filter": lambda r: r["id"] in {
+            "review-play-00543", "review-play-01088", "review-play-01149", "review-play-01282",
+            "review-play-01804", "review-play-01854", "review-play-01906", "review-play-02085",
+            "review-play-02401", "review-play-03857", "review-play-03980", "review-play-04782",
+            "review-play-04987", "review-play-05626", "review-play-05785", "review-play-05991",
+            "review-play-06910", "review-play-07229", "review-play-07454", "review-play-07867",
+            "review-play-08016", "review-play-08086", "review-play-08299", "review-play-08306",
+        },
+        "roadmap_refs": [
+            {"number": 9868, "relation": "exact match: '[Android] Setting to download images / files "
+                                          "to a custom (Downloads) folder'"},
+            {"number": 10981, "relation": "adjacent-narrower: same underlying save-location bug, but "
+                                           "scoped specifically to the profile QR-code share flow, not "
+                                           "general photo/media downloads"},
+        ],
+        "alt_explanation": "Could this be device/OS fragmentation (some Android skins or gallery apps "
+                            "behaving differently) rather than an app-level gap? Ruled out: 24 reviews "
+                            "spanning 630 days consistently describe the SAME underlying behavior "
+                            "(Bluesky hardcodes saved media to the OS default camera-roll/DCIM path "
+                            "regardless of device), using varied phrasing (camera roll, DCIM, gallery, "
+                            "Pictures folder) for the identical complaint, and two separately-filed "
+                            "GitHub issues (#9868, #10981) describe the same root cause from different "
+                            "angles -- not one device's own quirk. Could this be the same need as a "
+                            "distinct 'can't select upload source folder' complaint also found in this "
+                            "corpus (e.g. review-play-00931, review-play-00888)? Ruled out and "
+                            "deliberately excluded: that's the opposite direction (choosing which "
+                            "existing photo to attach when composing, not where a downloaded/saved file "
+                            "ends up) -- bundling them would combine two distinct asks into one gap, the "
+                            "same construction weakness already flagged for gap #3 "
+                            "(no-private-account-remove-follower) during an earlier adversarial-"
+                            "verification pass.",
+        "provenance_note": "Provenance: surfaced via scripts/16_latent_signal_mining.py's Detector 1 "
+                            "(workaround language) casting a broader net than the original 4-gap "
+                            "keyword clustering -- NOT itself a latent/second-order finding. Every one "
+                            "of the 24 supporting reviews states this need directly and plainly (e.g. "
+                            "review-play-05626: 'Please for the love of God change the folder where "
+                            "download images go'). See output/latent_candidates.md for the actual "
+                            "(unshipped) latent near-miss this should not be confused with.",
+    },
 ]
 
 # Candidates considered and explicitly rejected via falsification, documented
@@ -352,6 +407,12 @@ def main():
                 "supporting_evidence_ids": [e["id"] for e in gap["evidence"]],
             })
             continue
+        # Purely additive: build_gap()'s own scoring/output is unchanged above. A candidate
+        # may optionally carry a provenance_note (how it was found, distinct from why it
+        # scores the way it does) -- appended to verdict_justification here rather than
+        # baked into build_gap, since it's about discovery method, not rubric math.
+        if candidate.get("provenance_note"):
+            gap["verdict_justification"] += " " + candidate["provenance_note"]
         accepted.append(gap)
 
     accepted.sort(key=lambda g: g["confidence"], reverse=True)
