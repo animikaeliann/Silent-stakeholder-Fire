@@ -1,0 +1,931 @@
+{
+  "phase_0_finding": "No reviewer/user identifier exists anywhere in data/normalized/reviews.jsonl (top-level keys: timestamp, source_type, text, metadata, id, source_dataset, rating; metadata keys: helpful_count, char_len, is_exact_duplicate_text, app_id) or in the original raw CSV header (review_id, app_id, review_text, review_score, review_date, helpful_count, len) -- confirmed, not assumed. Detector 4 (cross-cluster correlation) therefore uses time-based co-occurrence (monthly volume correlation) as the honest substitute, not same-reviewer tracking.",
+  "workaround_language": {
+    "detector": "Detector 1: workaround language",
+    "n_matches": 28,
+    "matches": [
+      {
+        "id": "review-play-00194",
+        "timestamp": "2023-04-28T00:00:00",
+        "rating": 4,
+        "matched_pattern": "workaround",
+        "text": "WORKAROUND FOR DISAPPEARING KEYBOARD FOR WAITLIST Keep holding the box until the clipboard pop-up shows, and find where on the screen it settles, after a few tries you should be able to press it and it will keep the keyboard up and you can just press the arrow on the top left to go back to actually "
+      },
+      {
+        "id": "review-play-00332",
+        "timestamp": "2023-05-07T00:00:00",
+        "rating": 1,
+        "matched_pattern": "workaround",
+        "text": "Trying to sign up but samsung keyboard bug happens and I can't enter my email to join waitlist. The workaround is you can hold in the space to copy-paste your email in but this is a terrible bug(?)."
+      },
+      {
+        "id": "review-play-00535",
+        "timestamp": "2023-07-23T00:00:00",
+        "rating": 2,
+        "matched_pattern": "have to restart",
+        "text": "I entered my email for the invite waiting list, and there are no confirmation emails. Just shows a check mark and begins to glitch and have to restart it."
+      },
+      {
+        "id": "review-play-00687",
+        "timestamp": "2023-09-02T00:00:00",
+        "rating": 4,
+        "matched_pattern": "each time i",
+        "text": "Great app. Is it possible to have your following feed start on the last post you read? I find myself having to scroll back for last post each time I open. Would be nice if it just opened to that spot (like other lesser apps)"
+      },
+      {
+        "id": "review-play-00873",
+        "timestamp": "2023-10-18T00:00:00",
+        "rating": 1,
+        "matched_pattern": "have to re-enter",
+        "text": "The invite code system doesn't give you an email confirmation that you're successfully registered, considering how long I've been waiting, it doesn't seem to register me at all. If you're getting a code from elsewhere, you have to re-enter several credentials before the code will be validated, which"
+      },
+      {
+        "id": "review-play-00931",
+        "timestamp": "2023-11-07T00:00:00",
+        "rating": 1,
+        "matched_pattern": "i have to manually",
+        "text": "Can't select photos from more than three basic folders. Please, for the love of god, add the ability to select pics from more folders than The default downloads, screenshot, and camera folders. My camera app doesn't save in the default location, so I have to manually copy images individually over an"
+      },
+      {
+        "id": "review-play-01623",
+        "timestamp": "2024-08-31T00:00:00",
+        "rating": 1,
+        "matched_pattern": "each time i",
+        "text": "Up until now there were no issues. But today I was logged out of account and I can't log in because each time I try to log in my keyboard closes. My phone is completely fine. Other apps are working fine and everything has been updated. I wonder what is the issue?"
+      },
+      {
+        "id": "review-play-01857",
+        "timestamp": "2024-10-17T00:00:00",
+        "rating": 3,
+        "matched_pattern": "have to restart",
+        "text": "The app works fantastically besides the fact I have to restart the app whenever I want to refresh my notifications. It's not a smooth experience trying to keep up to date, unlike Twitter. If that could be fixed I'd be super happy with it"
+      },
+      {
+        "id": "review-play-01998",
+        "timestamp": "2024-10-18T00:00:00",
+        "rating": 3,
+        "matched_pattern": "i have to manually",
+        "text": "a month ago I signed up but there's no option to upload a video yet but now it did improve and I'm happy. tho it's still kinda buggy like when I was trying to search people, whenever I hit the x mark or tap the cancel, it doesn't clear the search automatically, so I have to manually erase it from th"
+      },
+      {
+        "id": "review-play-02191",
+        "timestamp": "2024-10-22T00:00:00",
+        "rating": 2,
+        "matched_pattern": "each time i",
+        "text": "Has potential but I can't get past the sign in screen. Each time I click the type box it bounces the screen up and down and hides the keyboard \ud83d\ude06. I'll have to stick to the Web version"
+      },
+      {
+        "id": "review-play-02266",
+        "timestamp": "2024-10-26T00:00:00",
+        "rating": 2,
+        "matched_pattern": "have to restart",
+        "text": "No issues with the web version for me. I like my experience there and they layout of the interface, but there are problems where feeds and DMs take very long to load or never load with this app. I have to restart the app for it to be okay but it is only okay for a short time before this problem appe"
+      },
+      {
+        "id": "review-play-02275",
+        "timestamp": "2024-10-27T00:00:00",
+        "rating": 3,
+        "matched_pattern": "have to keep",
+        "text": "Good experience when it comes to socialising and self-expression, but as for technical aspects, I was a bit disappointed. It's slow a lot of times, I have to keep restarting the app just to repost or like a post. Some inputs don't register, or take a long time as well. Hope this gets fixed along the"
+      },
+      {
+        "id": "review-play-02412",
+        "timestamp": "2024-11-09T00:00:00",
+        "rating": 3,
+        "matched_pattern": "i stopped",
+        "text": "It's improving, with an amoled black theme and nuclear blocking. I stopped using it a while back because it only has an American format for dates. It's not changed. I'm now using it because although Twatter uses a date format based on your country and more people it's become intolerable and I need t"
+      },
+      {
+        "id": "review-play-03073",
+        "timestamp": "2024-11-15T00:00:00",
+        "rating": 4,
+        "matched_pattern": "forced to use",
+        "text": "The app won't load for me after I logged in. So I am forced to use to website instead. I really hope and wish this issue will be fixed soon. Otherwise, this app has great potential!"
+      },
+      {
+        "id": "review-play-03631",
+        "timestamp": "2024-11-18T00:00:00",
+        "rating": 2,
+        "matched_pattern": "each time i",
+        "text": "Been trying to reach out to Bluesky about my incapability of logging in on my cellphone to bluesky. All other devices work fine but mobile phone. Each time I attempt to log in, my keyboard appears and then disappears, leaving me incapable of logging in. I restarted my phone, uninstalled the app, and"
+      },
+      {
+        "id": "review-play-04302",
+        "timestamp": "2024-11-23T00:00:00",
+        "rating": 5,
+        "matched_pattern": "i now use",
+        "text": "So far so good, a great platform to talk to people about subjects that interest you. You can tailor your feed for all your interests and easily bulk block accounts too. I now use this instead of Twitter which I deleted, it's a way better user experience, no blue check bores at the top of every post,"
+      },
+      {
+        "id": "review-play-04803",
+        "timestamp": "2024-11-30T00:00:00",
+        "rating": 5,
+        "matched_pattern": "forced to use",
+        "text": "Great to not be forced to use rich kid's platform."
+      },
+      {
+        "id": "review-play-06431",
+        "timestamp": "2025-01-20T00:00:00",
+        "rating": 1,
+        "matched_pattern": "have to restart",
+        "text": "Cant scroll at all. The premise seems cool, but I'm not so sure they can handle the influx of users. I have to restart the app every 2 seconds."
+      },
+      {
+        "id": "review-play-06587",
+        "timestamp": "2025-01-21T00:00:00",
+        "rating": 3,
+        "matched_pattern": "i stopped",
+        "text": "ngl actually really good. just wish there were nsfw accounts so i stopped getting flashed everytime i look in the cat pics feed"
+      },
+      {
+        "id": "review-play-07194",
+        "timestamp": "2025-02-07T00:00:00",
+        "rating": 2,
+        "matched_pattern": "have to keep",
+        "text": "If you try to make an account for this, be prepared to be frustrated. It took us about 10 or 15 minutes. The captchas are thoroughly broken and you just have to keep trying and trying until it works. Different browsers and devices make no difference, unfortunately."
+      },
+      {
+        "id": "review-play-07213",
+        "timestamp": "2025-02-08T00:00:00",
+        "rating": 3,
+        "matched_pattern": "have to keep",
+        "text": "Pretty great app. I definitely hope it takes over and beats out Twitter. My biggest issue is that it keeps logging me out at random. I want my account to stay signed in, I shouldn't have to keep putting in my password every 24 hours"
+      },
+      {
+        "id": "review-play-07381",
+        "timestamp": "2025-02-16T00:00:00",
+        "rating": 4,
+        "matched_pattern": "have to restart",
+        "text": "Love Bluesky. It's a work in progress and only a year old. Minor app issues. Sometimes have to restart the app in order to reply. The rest is just features they need to add but no major complaints about the UI."
+      },
+      {
+        "id": "review-play-07501",
+        "timestamp": "2025-02-22T00:00:00",
+        "rating": 1,
+        "matched_pattern": "have to keep",
+        "text": "I download blue sky I have to keep doing verification to do a post Keep bluesky it's not important to me Good bye if I can give no stars I would so you get 1"
+      },
+      {
+        "id": "review-play-07691",
+        "timestamp": "2025-03-03T00:00:00",
+        "rating": 2,
+        "matched_pattern": "have to restart",
+        "text": "Regular posting problems. Have to restart it all the time. Fix it already!"
+      },
+      {
+        "id": "review-play-07692",
+        "timestamp": "2025-03-03T00:00:00",
+        "rating": 3,
+        "matched_pattern": "have to relog",
+        "text": "Suuuuuper annoying - half the time when I open the app I have been logged out and have to relog... You cannot assume youre being notified with this app. I guess its after an update, but man that would be a priority for me, if I was the developer."
+      },
+      {
+        "id": "review-play-08100",
+        "timestamp": "2025-03-30T00:00:00",
+        "rating": 1,
+        "matched_pattern": "workaround",
+        "text": "Can't even log in. On the sign in screen, my keyboard pops up but vanishes within a second, and it doesn't allow me to auto fill my info either. Will reconsider this review once the problem is fixed. I have in the meantime found a workaround (type your username and password on your notes app, copy e"
+      },
+      {
+        "id": "review-play-08298",
+        "timestamp": "2025-04-14T00:00:00",
+        "rating": 2,
+        "matched_pattern": "each time i",
+        "text": "Still not implemented >>>It's ok though until I can refresh my feed and it not jump to the top of my timeline each time it's not useable for me. Let me read my timeline in a chronological order from my last read post to the newest post each time I refresh. I'd give 5 stars otherwise."
+      },
+      {
+        "id": "review-play-08316",
+        "timestamp": "2025-04-16T00:00:00",
+        "rating": 3,
+        "matched_pattern": "restart the app in order",
+        "text": "great app. but it crashes like every 3m. anytime you want to comment you need to restart the app in order for it to work."
+      }
+    ]
+  },
+  "implicit_comparison": {
+    "detector": "Detector 2: implicit-standard via comparison",
+    "n_matches": 55,
+    "matches": [
+      {
+        "id": "review-play-00304",
+        "timestamp": "2023-05-02T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "Right Wing snowflakes hate Bluesky because unlike Truth Social and Twitter they aren't allowed to post racism, transphobia, and nazi-ism. If you want an inclusive social media that highlights and enforces human rights for all, hit that download button"
+      },
+      {
+        "id": "review-play-00909",
+        "timestamp": "2023-10-29T00:00:00",
+        "rating": 4,
+        "matched_frame": "wish i could",
+        "text": "This app is definitely better than Twitter. I just wish I could save posts that I wanna see again."
+      },
+      {
+        "id": "review-play-00992",
+        "timestamp": "2023-12-03T00:00:00",
+        "rating": 1,
+        "matched_frame": "like twitter has",
+        "text": "There is nothing to do on this app. I know it's new but it hasn't taken off. Like twitter has become Right echo chamber, this app is leftist chamber. No place for sane moderate people. US politics has done more harm than good. Content discovery is way to hard and confusing on this app. Translation o"
+      },
+      {
+        "id": "review-play-01064",
+        "timestamp": "2023-12-24T00:00:00",
+        "rating": 3,
+        "matched_frame": "not as good as",
+        "text": "Better than Meta's Threads app, but not as good as X."
+      },
+      {
+        "id": "review-play-01112",
+        "timestamp": "2024-01-01T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "A good Twitter/X alternative. Unlike threads it has a public API which means you can expect the same app's that you get with Twitter. It appears to have far less of the problematic users, and so is a nicer place"
+      },
+      {
+        "id": "review-play-01263",
+        "timestamp": "2024-02-13T00:00:00",
+        "rating": 2,
+        "matched_frame": "not as good as",
+        "text": "Its not as good as x"
+      },
+      {
+        "id": "review-play-01336",
+        "timestamp": "2024-03-11T00:00:00",
+        "rating": 4,
+        "matched_frame": "wish it had",
+        "text": "Bacicly it's twitter but actually good, however I wish it had an easy hide all the NSFW stuff cause I'm in a public area button"
+      },
+      {
+        "id": "review-play-01418",
+        "timestamp": "2024-05-20T00:00:00",
+        "rating": 3,
+        "matched_frame": "like twitter does",
+        "text": "They don't censor progressive politics like Twitter does but jesus christ is this app buggy."
+      },
+      {
+        "id": "review-play-01531",
+        "timestamp": "2024-07-02T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "It's much better than Twitter. There is accountability here, unlike Twitter."
+      },
+      {
+        "id": "review-play-01857",
+        "timestamp": "2024-10-17T00:00:00",
+        "rating": 3,
+        "matched_frame": "unlike",
+        "text": "The app works fantastically besides the fact I have to restart the app whenever I want to refresh my notifications. It's not a smooth experience trying to keep up to date, unlike Twitter. If that could be fixed I'd be super happy with it"
+      },
+      {
+        "id": "review-play-01966",
+        "timestamp": "2024-10-18T00:00:00",
+        "rating": 4,
+        "matched_frame": "no bookmark",
+        "text": "Downloaded this as an alternative to Twitter (may or may not fully moved there soon) and there are a few things that I wished will be fixed, cus when I made my account I couldn't change the pre-filled birthdate, and after making my account I couldn't find the settings to change it. There's also no b"
+      },
+      {
+        "id": "review-play-02030",
+        "timestamp": "2024-10-19T00:00:00",
+        "rating": 4,
+        "matched_frame": "no edit",
+        "text": "Still no edit button for your posts. Shame, but better than M*sk does to Twitter now."
+      },
+      {
+        "id": "review-play-02151",
+        "timestamp": "2024-10-20T00:00:00",
+        "rating": 2,
+        "matched_frame": "unlike",
+        "text": "I honestly hope all the braindead libs come to this app x will be better for it. X is no longer for libs because everyone doesn't have the exact same opinions on everything they do on there anymore and the people that are actually patriots has a voice and aren't banned for wrongthink. people actuall"
+      },
+      {
+        "id": "review-play-02570",
+        "timestamp": "2024-11-13T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "Thank you Blue Sky devs, this is the ark former Twitter addicts needed to be built! Blue Sky is now surpassing pre-Musk Twitter in functionality and familiar accounts are arriving en masse. Unlike most things in the world, it's not in the pocket of a billionaire. This service is borderline miraculou"
+      },
+      {
+        "id": "review-play-02585",
+        "timestamp": "2024-11-13T00:00:00",
+        "rating": 4,
+        "matched_frame": "unlike",
+        "text": "Super nice platform, especially for artist and people into specific fandoms! Unlike twitter there's not an unmanageable amount of bots and I feel you can better connect with people :) My only comments are: it's a bit disappointing that you can't share pictures in conversations and reply to specific "
+      },
+      {
+        "id": "review-play-02676",
+        "timestamp": "2024-11-13T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "The best of the social media sites right now. You get full control. No algorithm recommending stuff you care nothing about. No rage or engagement. Just people and communities you allow in your circles. And, if you don't want to take time with curation, then you DO have a traditional feed with recomm"
+      },
+      {
+        "id": "review-play-02679",
+        "timestamp": "2024-11-13T00:00:00",
+        "rating": 5,
+        "matched_frame": "like twitter does",
+        "text": "Excellent. I would like it if you could view pictures in landscape mode like Twitter does as I follow lots of photographers and the pics are always better that way. Needs a privacy mode too but other than that it's great."
+      },
+      {
+        "id": "review-play-02802",
+        "timestamp": "2024-11-14T00:00:00",
+        "rating": 3,
+        "matched_frame": "like twitter does",
+        "text": "The return to top, compose and other toolbar buttons are way too close to the content and it's hard not to accidentally tap them when scrolling - they need to go at the top and be hidden automatically when scrolling (like twitter does). Driving me crazy. Otherwise it's good."
+      },
+      {
+        "id": "review-play-02807",
+        "timestamp": "2024-11-14T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "A way better option to the other place formally known as Twitter. You don't get harassed by bots, you can block anyone that is harassing you, more effective safety support, you get more engagement as the algorithm is not set up against you, unlike Twitter where you have to pay for the privilege to g"
+      },
+      {
+        "id": "review-play-02963",
+        "timestamp": "2024-11-14T00:00:00",
+        "rating": 4,
+        "matched_frame": "like twitter does",
+        "text": "Doesn't cache the post you're on when minimising the app (like Twitter does) and no bookmark feature to come back to a post (like Twitter) but other than that it's a nicer space."
+      },
+      {
+        "id": "review-play-03221",
+        "timestamp": "2024-11-16T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "This app is excellent!!! Less drama and negativity unlike X. I will be promoting this app to everyone I know!!"
+      },
+      {
+        "id": "review-play-03447",
+        "timestamp": "2024-11-17T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "Such a better alternative for Twitter. It feels so chill and fun with creative and funny people unlike Twitter being toxic cesspool."
+      },
+      {
+        "id": "review-play-03545",
+        "timestamp": "2024-11-18T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "This app actually works, unlike Twitter. Also, I can see my feed in a timeline, which I didn't think was a big ask in the year 2024, but here we are."
+      },
+      {
+        "id": "review-play-03605",
+        "timestamp": "2024-11-18T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "This app can't get colors right in photos and videos, unlike Instagram."
+      },
+      {
+        "id": "review-play-03825",
+        "timestamp": "2024-11-19T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "I love this app unlike Instagram and X they removed the ibelivegregtv account."
+      },
+      {
+        "id": "review-play-03860",
+        "timestamp": "2024-11-20T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "Bluesky no longer has that Libertarian hack, Jack Dorsey, as a backer. So people that were worried about that, can rest easy. Bluesky is pretty much like Twitter was before that racist billionaire Elon Musk bought it to provide a platform to literal nazis. Bluesky is also more open to general audien"
+      },
+      {
+        "id": "review-play-03904",
+        "timestamp": "2024-11-20T00:00:00",
+        "rating": 1,
+        "matched_frame": "not as good as",
+        "text": "Not as good as Twitter (X)"
+      },
+      {
+        "id": "review-play-03999",
+        "timestamp": "2024-11-20T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "Bluesky is a refreshing platform that prioritizes open, equitable conversations without the toxicity or fascist influence that has taken over X under Elon Musk's leadership. Unlike X, which has devolved into an unmoderated, chaotic echo chamber, Bluesky offers a balanced space for meaningful interac"
+      },
+      {
+        "id": "review-play-04144",
+        "timestamp": "2024-11-21T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "Much better than the \"other\" prior called Twitter. Yes, it still has things that need work, like no group DM'ing or adding photos or videos to DMs yet. Bluesky is open and developers are working on what's mentioned. And unlike \"other\", the developers are working on E2EE for DM and 2FA log-in the \"ot"
+      },
+      {
+        "id": "review-play-04257",
+        "timestamp": "2024-11-22T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "I very appreciate the personalisation, QoL, and user control. Bluesky is a fallout and relief from the awful environment that Twitter became. Bluesky actually has functioning features that benefit user experience. I personally like the personalised feeds, the posting options, and privacy features. B"
+      },
+      {
+        "id": "review-play-04436",
+        "timestamp": "2024-11-25T00:00:00",
+        "rating": 2,
+        "matched_frame": "no edit",
+        "text": "No edit function. No delete notifications function. No search function. Limited emoji choice. Often slow loading. With all that said. Still far superior than twitter X."
+      },
+      {
+        "id": "review-play-04624",
+        "timestamp": "2024-11-28T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "Works flawlessly AND isn't controlled by a billionaire unlike Twitter and Threads! Power to the people \u270a"
+      },
+      {
+        "id": "review-play-04655",
+        "timestamp": "2024-11-28T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "I'm really enjoying Bluesky. It is active, relevant, and overall a positive environment. Unlike Threads, Bluesky allows Canadian news links, which is very important to me. The one thing I miss is verification for popular accounts (journalists, actors, doctors, etc.). I hope that feature is added soo"
+      },
+      {
+        "id": "review-play-04726",
+        "timestamp": "2024-11-29T00:00:00",
+        "rating": 4,
+        "matched_frame": "like x does",
+        "text": "I like the fact that this app doesn't cost an arm and a leg like X does. This is what makes this app so great!"
+      },
+      {
+        "id": "review-play-04748",
+        "timestamp": "2024-11-29T00:00:00",
+        "rating": 2,
+        "matched_frame": "unlike",
+        "text": "An extremely liberal/ left leaning social media type app but one good thing I can say is they do at least filter out all the porn content unlike Twitter/ x, and even to some extent lately Instagram, which allow anything pretty much to be shown on their platforms, which is why I left them both in dis"
+      },
+      {
+        "id": "review-play-04794",
+        "timestamp": "2024-11-30T00:00:00",
+        "rating": 1,
+        "matched_frame": "unlike",
+        "text": "I tried to give this app a fair shot as an alternative to Twitter, now X, but doing even something as basic as creating an account has proven to be not unlike any of the labors of Hercules in difficulty. There's a captcha test at the end which I had to pass to create my account, and no matter what I"
+      },
+      {
+        "id": "review-play-04797",
+        "timestamp": "2024-11-30T00:00:00",
+        "rating": 4,
+        "matched_frame": "unlike",
+        "text": "This app is great. Unlike Twitter, you can barely find any bots or anything negative in general. But the algorithm needs improvement because all I want to see are little doodles and cute animal pictures, not anything Elon Musk or politics related in general, I didn't even choose them for my interest"
+      },
+      {
+        "id": "review-play-04967",
+        "timestamp": "2024-12-03T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "Genuinely really nice to use, it's a great alternative to Twitter and actually seems very active unlike some other alternatives that have popped up. I hope Bluesky continues to improve and rise in popularity as it seems to be."
+      },
+      {
+        "id": "review-play-04972",
+        "timestamp": "2024-12-03T00:00:00",
+        "rating": 5,
+        "matched_frame": "like twitter has",
+        "text": "A refreshing take on social media. The way the platform is growing and improving all the time is great. There's still a few things I wish to see (Locked accounts, individual Repost muting, better image quality, etc) but am happy to patiently wait for! I've been liking Bluesky so much, that if they h"
+      },
+      {
+        "id": "review-play-05130",
+        "timestamp": "2024-12-07T00:00:00",
+        "rating": 4,
+        "matched_frame": "wish it had",
+        "text": "So far I really like it, it's just like old Twitter and the community is friendly. However, I wish it had a \"save post\" or \"bookmark post\" option."
+      },
+      {
+        "id": "review-play-05215",
+        "timestamp": "2024-12-10T00:00:00",
+        "rating": 1,
+        "matched_frame": "not as good as",
+        "text": "I found this not as good as X. I really don't like political politics on either platform, but it's a lot more divided on the sky. Too much hate. Yeah, all need to get a grip."
+      },
+      {
+        "id": "review-play-05908",
+        "timestamp": "2025-01-07T00:00:00",
+        "rating": 5,
+        "matched_frame": "wish i could",
+        "text": "I love it. It's so much more peaceful than X and I love seeing direct content from friends. I would literally give my left kidney for a bookmark option. There's so many posts from friends I wish I could bookmark to go back to later!"
+      },
+      {
+        "id": "review-play-06120",
+        "timestamp": "2025-01-13T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "Thank God this site exists, it's actually a positive, friendly community unlike Twitter/X."
+      },
+      {
+        "id": "review-play-06324",
+        "timestamp": "2025-01-18T00:00:00",
+        "rating": 3,
+        "matched_frame": "wish it had",
+        "text": "It's ok for what it is but not a good instagram or tiktok alternative. doesn't let me post more than 4 photos at a time and doesn't support video very well has a very low mb allowance. Also wish it had the grid style profiles to make the profile look more like a portfolio of cool pics and videos wit"
+      },
+      {
+        "id": "review-play-06630",
+        "timestamp": "2025-01-21T00:00:00",
+        "rating": 3,
+        "matched_frame": "unlike",
+        "text": "Generally okay but if you're like me and you don't wanna miss what people post, it's super annoying that (unlike Twitter) it doesn't remember where you were. Every time I open it it goes straight to the newest stuff so I have to read until I remember seeing stuff (which is hard cause people repost t"
+      },
+      {
+        "id": "review-play-06778",
+        "timestamp": "2025-01-23T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "fairly new app so its still adapting and adding new features (like a video feature similar to tiktok). so far its been great with very little to complain about. Its decentralized, unlike twitter (x), so bluesky allows users to drive their algorithms which means users shape their experience."
+      },
+      {
+        "id": "review-play-06919",
+        "timestamp": "2025-01-27T00:00:00",
+        "rating": 1,
+        "matched_frame": "better than x and facebook. the block option",
+        "text": "Until Bluesky has the ability to fully screen potential followers and block and remove unwanted followers, it's no better than X and Facebook. The block option that exists prevents you from seeing unwanted followers, but it doesn't appear to actually prevent them from seeing your posts."
+      },
+      {
+        "id": "review-play-07149",
+        "timestamp": "2025-02-05T00:00:00",
+        "rating": 5,
+        "matched_frame": "no edit",
+        "text": "Zero suppression of Palestine content. Comparing it to Meta, this app is OODLES better social media. It's better than Xitter, IG, FB, Threads and everything else. There is no edit button, so it's a bit irritating for spelling mistakes but otherwise I ADORE this app. Please leave it 99% exactly how i"
+      },
+      {
+        "id": "review-play-07176",
+        "timestamp": "2025-02-06T00:00:00",
+        "rating": 3,
+        "matched_frame": "not as good as",
+        "text": "Boring . Not as good as Twitter/X"
+      },
+      {
+        "id": "review-play-07204",
+        "timestamp": "2025-02-07T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "Open source, decentralized, public standard, not a walled garden. It really is your profile on Bluesky, unlike the inferior archaic options where it is their profile on you. You can own yourself at your own legal domain on Bluesky: true 2nd gen socialmedia. Throw the archaic autocratic socialmedias "
+      },
+      {
+        "id": "review-play-07320",
+        "timestamp": "2025-02-13T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "Still missing a few features that would be nice like muting reposts from specific users and longer video support, but overall it's still functionally way better of an app than Twitter ever was. Biggest thing I love about bluesky is that it doesn't have a messed up algorithm that will arbitrarily low"
+      },
+      {
+        "id": "review-play-07715",
+        "timestamp": "2025-03-04T00:00:00",
+        "rating": 1,
+        "matched_frame": "unlike",
+        "text": "There no childd por unlike Twitter.\ud83d\udc4e"
+      },
+      {
+        "id": "review-play-07934",
+        "timestamp": "2025-03-17T00:00:00",
+        "rating": 5,
+        "matched_frame": "unlike",
+        "text": "None corrupt social media app unlike X. Great job! This is the future of social media. Keep up the great work!"
+      },
+      {
+        "id": "review-play-07964",
+        "timestamp": "2025-03-20T00:00:00",
+        "rating": 3,
+        "matched_frame": "wish i could",
+        "text": "I wanna like it im boycotting twitter but its still growing when it comes to users which is understandable i wish i could filter from images and videos or links or all mixed together the real problem is it pauses the video when you go into full screen the videos play in the timeline fine and the sec"
+      },
+      {
+        "id": "review-play-08018",
+        "timestamp": "2025-03-23T00:00:00",
+        "rating": 2,
+        "matched_frame": "doesn't have a feature",
+        "text": "I realized that this app doesn't have a feature for post notifications. That's the only thing I use Twitter for, I don't scroll it. So this app is useless for me and I will unfortunately have to continue using Twitter. You'd think this would have been one of the first things implemented in a Twitter"
+      }
+    ]
+  },
+  "silent_churn_divergence": {
+    "detector": "Detector 3: silent-churn divergence",
+    "themes_checked": [
+      {
+        "theme": "login-keyboard-dismissal",
+        "n": 287,
+        "n_churn_matches": 25,
+        "complaint_monthly": {
+          "2023-04": 29,
+          "2023-05": 5,
+          "2023-09": 1,
+          "2023-10": 1,
+          "2024-05": 1,
+          "2024-07": 3,
+          "2024-08": 3,
+          "2024-09": 4,
+          "2024-10": 13,
+          "2024-11": 82,
+          "2024-12": 35,
+          "2025-01": 50,
+          "2025-02": 22,
+          "2025-03": 31,
+          "2025-04": 7
+        },
+        "churn_monthly": {
+          "2023-05": 1,
+          "2024-09": 1,
+          "2024-11": 8,
+          "2024-12": 3,
+          "2025-01": 6,
+          "2025-02": 1,
+          "2025-03": 5
+        },
+        "churn_evidence_ids": [
+          "review-play-00310",
+          "review-play-01779",
+          "review-play-02522",
+          "review-play-02595",
+          "review-play-03065",
+          "review-play-03631",
+          "review-play-03928",
+          "review-play-04093",
+          "review-play-04434",
+          "review-play-04478",
+          "review-play-04866",
+          "review-play-05163",
+          "review-play-05756",
+          "review-play-05971",
+          "review-play-06066",
+          "review-play-06091",
+          "review-play-06583",
+          "review-play-06735",
+          "review-play-06955",
+          "review-play-07392",
+          "review-play-07722",
+          "review-play-07845",
+          "review-play-07948",
+          "review-play-07979",
+          "review-play-08023"
+        ],
+        "complaint_rate_first_half": 6.142857142857143,
+        "complaint_rate_second_half": 30.5,
+        "churn_rate_first_half": 3.3333333333333335,
+        "churn_rate_second_half": 3.75,
+        "declining_complaints": false,
+        "rising_churn": true,
+        "flagged": false
+      },
+      {
+        "theme": "no-private-account-remove-follower",
+        "n": 67,
+        "n_churn_matches": 0,
+        "complaint_monthly": {
+          "2024-03": 3,
+          "2024-06": 1,
+          "2024-08": 1,
+          "2024-09": 1,
+          "2024-10": 9,
+          "2024-11": 24,
+          "2024-12": 8,
+          "2025-01": 10,
+          "2025-02": 4,
+          "2025-03": 3,
+          "2025-04": 3
+        },
+        "churn_monthly": {},
+        "churn_evidence_ids": [],
+        "flagged": false,
+        "reason": "insufficient churn co-occurrence (n_churn=0 < 3)"
+      },
+      {
+        "theme": "follower-count-block-desync",
+        "n": 15,
+        "n_churn_matches": 0,
+        "complaint_monthly": {
+          "2024-09": 1,
+          "2024-11": 1,
+          "2024-12": 4,
+          "2025-01": 7,
+          "2025-03": 1,
+          "2025-04": 1
+        },
+        "churn_monthly": {},
+        "churn_evidence_ids": [],
+        "flagged": false,
+        "reason": "insufficient churn co-occurrence (n_churn=0 < 3)"
+      },
+      {
+        "theme": "captcha-blocks-signup-login",
+        "n": 87,
+        "n_churn_matches": 10,
+        "complaint_monthly": {
+          "2023-12": 1,
+          "2024-10": 4,
+          "2024-11": 55,
+          "2024-12": 12,
+          "2025-01": 7,
+          "2025-02": 2,
+          "2025-03": 5,
+          "2025-04": 1
+        },
+        "churn_monthly": {
+          "2024-11": 5,
+          "2024-12": 3,
+          "2025-01": 2
+        },
+        "churn_evidence_ids": [
+          "review-play-02631",
+          "review-play-02819",
+          "review-play-03941",
+          "review-play-04148",
+          "review-play-04163",
+          "review-play-04960",
+          "review-play-05251",
+          "review-play-05687",
+          "review-play-05935",
+          "review-play-06857"
+        ],
+        "complaint_rate_first_half": 18.0,
+        "complaint_rate_second_half": 3.75,
+        "churn_rate_first_half": 5.0,
+        "churn_rate_second_half": 2.5,
+        "declining_complaints": true,
+        "rising_churn": false,
+        "flagged": false
+      },
+      {
+        "theme": "video-playback-crash",
+        "n": 32,
+        "n_churn_matches": 2,
+        "complaint_monthly": {
+          "2024-11": 1,
+          "2024-12": 6,
+          "2025-01": 23,
+          "2025-02": 2
+        },
+        "churn_monthly": {
+          "2025-01": 2
+        },
+        "churn_evidence_ids": [
+          "review-play-05856",
+          "review-play-06540"
+        ],
+        "flagged": false,
+        "reason": "insufficient churn co-occurrence (n_churn=2 < 3)"
+      },
+      {
+        "theme": "per-account-post-notifications",
+        "n": 21,
+        "n_churn_matches": 0,
+        "complaint_monthly": {
+          "2023-12": 1,
+          "2024-01": 1,
+          "2024-10": 1,
+          "2024-11": 6,
+          "2024-12": 1,
+          "2025-01": 4,
+          "2025-02": 4,
+          "2025-03": 2,
+          "2025-04": 1
+        },
+        "churn_monthly": {},
+        "churn_evidence_ids": [],
+        "flagged": false,
+        "reason": "insufficient churn co-occurrence (n_churn=0 < 3)"
+      },
+      {
+        "theme": "moderation-appeal-transparency",
+        "n": 78,
+        "n_churn_matches": 2,
+        "complaint_monthly": {
+          "2024-02": 1,
+          "2024-09": 1,
+          "2024-11": 8,
+          "2024-12": 6,
+          "2025-01": 15,
+          "2025-02": 21,
+          "2025-03": 17,
+          "2025-04": 9
+        },
+        "churn_monthly": {
+          "2025-03": 2
+        },
+        "churn_evidence_ids": [
+          "review-play-07641",
+          "review-play-07983"
+        ],
+        "flagged": false,
+        "reason": "insufficient churn co-occurrence (n_churn=2 < 3)"
+      },
+      {
+        "theme": "muted-words-workaround",
+        "n": 57,
+        "n_churn_matches": 2,
+        "complaint_monthly": {
+          "2023-09": 2,
+          "2023-10": 1,
+          "2023-11": 3,
+          "2023-12": 1,
+          "2024-03": 2,
+          "2024-05": 1,
+          "2024-07": 1,
+          "2024-09": 1,
+          "2024-10": 5,
+          "2024-11": 11,
+          "2024-12": 7,
+          "2025-01": 3,
+          "2025-02": 12,
+          "2025-03": 7
+        },
+        "churn_monthly": {
+          "2024-09": 1,
+          "2025-03": 1
+        },
+        "churn_evidence_ids": [
+          "review-play-01697",
+          "review-play-08021"
+        ],
+        "flagged": false,
+        "reason": "insufficient churn co-occurrence (n_churn=2 < 3)"
+      },
+      {
+        "theme": "manual-refresh-restart-workaround",
+        "n": 7,
+        "flagged": false,
+        "reason": "insufficient data (n=7 < 10)"
+      },
+      {
+        "theme": "photo-folder-workaround",
+        "n": 29,
+        "n_churn_matches": 0,
+        "complaint_monthly": {
+          "2023-07": 1,
+          "2023-09": 4,
+          "2023-10": 1,
+          "2023-11": 1,
+          "2023-12": 2,
+          "2024-01": 1,
+          "2024-02": 1,
+          "2024-05": 1,
+          "2024-06": 1,
+          "2024-10": 3,
+          "2024-11": 3,
+          "2024-12": 2,
+          "2025-01": 3,
+          "2025-02": 2,
+          "2025-03": 1,
+          "2025-04": 2
+        },
+        "churn_monthly": {},
+        "churn_evidence_ids": [],
+        "flagged": false,
+        "reason": "insufficient churn co-occurrence (n_churn=0 < 3)"
+      }
+    ],
+    "flagged_themes": []
+  },
+  "cross_cluster_correlation": {
+    "detector": "Detector 4: cross-cluster time-correlation",
+    "note": "Correlated on each theme's SHARE of that month's total review volume, not raw counts -- raw counts falsely correlated almost every theme pair (13 pairs cleared r>=0.6) because total review volume itself spikes ~10x in 2024-11 and every theme rides that same wave; that confound is controlled for here, and no pair clears the threshold once it is.",
+    "correlation_threshold": 0.6,
+    "max_shared_keywords": 1,
+    "correlated_pairs": [],
+    "near_miss_pairs_for_context": [
+      {
+        "theme_a": "follower-count-block-desync",
+        "theme_b": "video-playback-crash",
+        "correlation": 0.595,
+        "shared_keywords": [],
+        "n_a": 15,
+        "n_b": 32
+      },
+      {
+        "theme_a": "no-private-account-remove-follower",
+        "theme_b": "muted-words-workaround",
+        "correlation": 0.491,
+        "shared_keywords": [],
+        "n_a": 67,
+        "n_b": 57
+      },
+      {
+        "theme_a": "follower-count-block-desync",
+        "theme_b": "moderation-appeal-transparency",
+        "correlation": 0.422,
+        "shared_keywords": [
+          "accounts"
+        ],
+        "n_a": 15,
+        "n_b": 78
+      },
+      {
+        "theme_a": "login-keyboard-dismissal",
+        "theme_b": "photo-folder-workaround",
+        "correlation": -0.395,
+        "shared_keywords": [
+          "access"
+        ],
+        "n_a": 287,
+        "n_b": 29
+      },
+      {
+        "theme_a": "per-account-post-notifications",
+        "theme_b": "moderation-appeal-transparency",
+        "correlation": 0.377,
+        "shared_keywords": [],
+        "n_a": 21,
+        "n_b": 78
+      }
+    ]
+  },
+  "new_candidate_theme_definitions": {
+    "muted-words-workaround": "Users manually maintain large mute/block-word lists as a substitute for missing category-level content controls",
+    "manual-refresh-restart-workaround": "Users restart the app to force a refresh instead of the app auto-updating",
+    "photo-folder-workaround": "Users describe manual workarounds for limited photo-folder access when posting images"
+  }
+}
